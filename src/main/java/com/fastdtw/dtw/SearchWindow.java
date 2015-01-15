@@ -7,13 +7,13 @@
 
 package com.fastdtw.dtw;
 
-import com.fastdtw.matrix.ColMajorCell;
-
-import java.util.Iterator;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import com.fastdtw.matrix.ColMajorCell;
 
 
 

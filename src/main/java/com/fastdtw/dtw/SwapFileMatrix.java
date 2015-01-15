@@ -7,13 +7,13 @@
 
 package com.fastdtw.dtw;
 
-import com.fastdtw.lang.TypeConversions;
-
-import java.io.RandomAccessFile;
 import java.io.File;
-import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Random;
+
+import com.fastdtw.lang.TypeConversions;
 
 
 

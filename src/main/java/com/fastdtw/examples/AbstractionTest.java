@@ -7,16 +7,16 @@
 
 package com.fastdtw.examples;
 
-import com.fastdtw.timeseries.TimeSeries;
-import com.fastdtw.timeseries.PAA;
-import com.fastdtw.util.DistanceFunction;
-import com.fastdtw.util.DistanceFunctionFactory;
+import java.util.ArrayList;
+
+import com.fastdtw.dtw.SearchWindow;
 import com.fastdtw.dtw.TimeWarpInfo;
 import com.fastdtw.dtw.WarpPath;
-import com.fastdtw.dtw.SearchWindow;
 import com.fastdtw.dtw.WarpPathWindow;
-
-import java.util.ArrayList;
+import com.fastdtw.timeseries.PAA;
+import com.fastdtw.timeseries.TimeSeries;
+import com.fastdtw.util.DistanceFunction;
+import com.fastdtw.util.DistanceFunctionFactory;
 
 
 /**

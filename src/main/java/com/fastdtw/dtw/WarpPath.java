@@ -7,15 +7,15 @@
 
 package com.fastdtw.dtw;
 
-import com.fastdtw.matrix.ColMajorCell;
-
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-import java.util.NoSuchElementException;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
+
+import com.fastdtw.matrix.ColMajorCell;
 
 
 

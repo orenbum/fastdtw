@@ -7,9 +7,9 @@
 
 package com.fastdtw.timeseries;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Iterator;
-import java.math.BigInteger;
 
 
 public class TimeSeriesPoint

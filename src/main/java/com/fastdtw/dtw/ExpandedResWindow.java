@@ -7,9 +7,9 @@
 
 package com.fastdtw.dtw;
 
-import com.fastdtw.timeseries.TimeSeries;
-import com.fastdtw.timeseries.PAA;
 import com.fastdtw.matrix.ColMajorCell;
+import com.fastdtw.timeseries.PAA;
+import com.fastdtw.timeseries.TimeSeries;
 
 
 public class ExpandedResWindow extends SearchWindow
