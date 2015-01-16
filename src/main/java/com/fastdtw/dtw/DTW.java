@@ -236,7 +236,7 @@ catch (Exception e)
 
       // Get an iterator that traverses the window cells in the order that the cost matrix is filled.
       //    (first to last row (1..maxI), bottom to top (1..MaxJ)
-      final Iterator matrixIterator = window.iterator();
+      final Iterator<ColMajorCell> matrixIterator = window.iterator();
 
       while (matrixIterator.hasNext())
       {
@@ -302,11 +302,11 @@ catch (Exception e)
 
       // Get an iterator that traverses the window cells in the order that the cost matrix is filled.
       //    (first to last row (1..maxI), bottom to top (1..MaxJ)
-      final Iterator matrixIterator = window.iterator();
+      final Iterator<ColMajorCell> matrixIterator = window.iterator();
 
       while (matrixIterator.hasNext())
       {
-         final ColMajorCell currentCell = (ColMajorCell)matrixIterator.next();  // current cell being filled
+         final ColMajorCell currentCell = matrixIterator.next();  // current cell being filled
          final int i = currentCell.getCol();
          final int j = currentCell.getRow();
 

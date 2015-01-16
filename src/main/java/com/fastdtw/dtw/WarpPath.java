@@ -23,15 +23,15 @@ import com.fastdtw.matrix.ColMajorCell;
 public class WarpPath
 {
    // DATA
-   private final ArrayList tsIindexes;   // ArrayList of Integer
-   private final ArrayList tsJindexes;   // ArrayList of Integer
+   private final ArrayList<Integer> tsIindexes;   // ArrayList of Integer
+   private final ArrayList<Integer> tsJindexes;   // ArrayList of Integer
 
 
    // CONSTRUCTORS
    public WarpPath()
    {
-      tsIindexes = new ArrayList();
-      tsJindexes = new ArrayList();
+      tsIindexes = new ArrayList<Integer>();
+      tsJindexes = new ArrayList<Integer>();
    }
 
 
@@ -124,13 +124,13 @@ public class WarpPath
    }
 
 
-   public ArrayList getMatchingIndexesForI(int i)
+   public ArrayList<Integer> getMatchingIndexesForI(int i)
    {
       int index = tsIindexes.indexOf(new Integer(i));
       if (index < 0)
          throw new RuntimeException("ERROR:  index '" + i + " is not in the " +
                                  "warp path.");
-      final ArrayList matchingJs = new ArrayList();
+      final ArrayList<Integer> matchingJs = new ArrayList<Integer>();
       while (index<tsIindexes.size() && tsIindexes.get(index).equals(new Integer(i)))
          matchingJs.add(tsJindexes.get(index++));
 
@@ -138,13 +138,13 @@ public class WarpPath
    }  // end getMatchingIndexesForI(int i)
 
 
-   public ArrayList getMatchingIndexesForJ(int j)
+   public ArrayList<Integer> getMatchingIndexesForJ(int j)
    {
       int index = tsJindexes.indexOf(new Integer(j));
       if (index < 0)
          throw new RuntimeException("ERROR:  index '" + j + " is not in the " +
                                  "warp path.");
-      final ArrayList matchingIs = new ArrayList();
+      final ArrayList<Integer> matchingIs = new ArrayList<Integer>();
       while (index<tsJindexes.size() && tsJindexes.get(index).equals(new Integer(j)))
          matchingIs.add(tsIindexes.get(index++));
 
@@ -168,7 +168,7 @@ public class WarpPath
    {
       for (int x=0; x<tsIindexes.size(); x++)
       {
-         final Object temp = tsIindexes.get(x);
+         final int temp = tsIindexes.get(x);
          tsIindexes.set(x, tsJindexes.get(x));
          tsJindexes.set(x, temp);
       }
