@@ -95,10 +95,11 @@ public class TimeSeries
    {
       this();
 
-      try
+      BufferedReader br=null;
+    try
       {
          // Record the Label names (fropm the top row.of the input file).
-         BufferedReader br = new BufferedReader (new FileReader (inputFile));  // open the input file
+          br = new BufferedReader (new FileReader (inputFile));  // open the input file
          String line = br.readLine();  // the top row that contains attribiute names.
          StringTokenizer st = new StringTokenizer (line, String.valueOf(delimiter));
 
@@ -212,7 +213,6 @@ public class TimeSeries
 //               timeValueMap.put(timeReadings.get(timeReadings.size()-1), readings);
             }  // end if
          }  // end while loop
-         br.close();  
       }
       catch (FileNotFoundException e)
       {
@@ -221,7 +221,14 @@ public class TimeSeries
       catch (IOException e)
       {
          throw new RuntimeException("ERROR:  Problem reading the file '" + inputFile + "'.");
-      }  // end try block
+      }  finally {
+          if (br!=null)
+            try {
+                br.close();
+            } catch (IOException e) {
+                //don't care
+            }
+      }
    }  // end constructor
 
 
