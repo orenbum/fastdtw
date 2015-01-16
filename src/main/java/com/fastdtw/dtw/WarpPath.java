@@ -46,12 +46,13 @@ public class WarpPath
 
    public WarpPath(String inputFile)
    {
-      this();
+    this();
       
-      try
+    BufferedReader br=null;
+    try
       {
          // Record the Label names (fropm the top row.of the input file).
-         final BufferedReader br = new BufferedReader (new FileReader (inputFile));  // open the input file
+          br = new BufferedReader (new FileReader (inputFile));  // open the input file
 
          // Read Cluster assignments.
          String line;
@@ -75,7 +76,15 @@ public class WarpPath
       catch (IOException e)
       {
          throw new RuntimeException("ERROR:  Problem reading the file '" + inputFile + "'.");
-      }  // end try block
+      }  
+      finally {
+          if (br!=null)
+            try {
+                br.close();
+            } catch (IOException e) {
+                //don't care
+            }
+      }
 
    }
 
