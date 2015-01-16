@@ -13,8 +13,6 @@ import org.junit.Test;
 
 import com.fastdtw.dtw.TimeWarpInfo;
 import com.fastdtw.timeseries.TimeSeries;
-import com.fastdtw.util.DistanceFunction;
-import com.fastdtw.util.DistanceFunctionFactory;
 import com.fastdtw.util.EuclideanDistance;
 
 public class FastDtwTest {
