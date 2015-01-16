@@ -19,11 +19,6 @@ package com.fastdtw.dtw;
 public class WarpPathWindow extends SearchWindow
 {
 
-   // CONSTANTS
-   private final static int defaultRadius = 0;
-
-
-
    // CONSTRUCTORS
    public WarpPathWindow(WarpPath path, int searchRadius)
    {
