@@ -93,7 +93,7 @@ abstract public class SearchWindow
    // Iterates through all cells in the search window in the order that Dynamic
    //    Time Warping needs to evaluate them. (first to last column (0..maxI),
    //    bottom up  (o..maxJ))
-   public final Iterator iterator()
+   public final Iterator<ColMajorCell> iterator()
    {
       return new SearchWindowIterator(this);
    }
@@ -141,8 +141,8 @@ abstract public class SearchWindow
       {
          // Add all cells in the current Window to an array, iterating through the window and expanding the window
          //    at the same time is not possible because the window can't be changed during iteration through the cells.
-         final ArrayList windowCells = new ArrayList(this.size());
-         for (final Iterator cellIter=this.iterator(); cellIter.hasNext();)
+         final ArrayList<ColMajorCell> windowCells = new ArrayList<ColMajorCell>(this.size());
+         for (final Iterator<ColMajorCell> cellIter=this.iterator(); cellIter.hasNext();)
             windowCells.add(cellIter.next());
 
 
@@ -312,7 +312,7 @@ abstract public class SearchWindow
 
 
    // A private class that is a fail-fast iterator through the search window.
-   private final class SearchWindowIterator implements Iterator
+   private final class SearchWindowIterator implements Iterator<ColMajorCell>
    {
       // PRIVATE DATA
       private int currentI;
@@ -341,7 +341,7 @@ abstract public class SearchWindow
       }
 
 
-      public Object next()
+      public ColMajorCell next()
       {
          if (modCount != expectedModCount)
             throw new ConcurrentModificationException();
