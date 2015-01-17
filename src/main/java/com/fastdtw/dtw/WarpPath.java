@@ -132,58 +132,6 @@ public class WarpPath
       tsJindexes.add(new Integer(j));
    }
 
-
-   public ArrayList<Integer> getMatchingIndexesForI(int i)
-   {
-      int index = tsIindexes.indexOf(new Integer(i));
-      if (index < 0)
-         throw new RuntimeException("ERROR:  index '" + i + " is not in the " +
-                                 "warp path.");
-      final ArrayList<Integer> matchingJs = new ArrayList<Integer>();
-      while (index<tsIindexes.size() && tsIindexes.get(index).equals(new Integer(i)))
-         matchingJs.add(tsJindexes.get(index++));
-
-      return matchingJs;
-   }  // end getMatchingIndexesForI(int i)
-
-
-   public ArrayList<Integer> getMatchingIndexesForJ(int j)
-   {
-      int index = tsJindexes.indexOf(new Integer(j));
-      if (index < 0)
-         throw new RuntimeException("ERROR:  index '" + j + " is not in the " +
-                                 "warp path.");
-      final ArrayList<Integer> matchingIs = new ArrayList<Integer>();
-      while (index<tsJindexes.size() && tsJindexes.get(index).equals(new Integer(j)))
-         matchingIs.add(tsIindexes.get(index++));
-
-      return matchingIs;
-   }  // end getMatchingIndexesForI(int i)
-
-
-   // Create a new WarpPath that is the same as THIS WarpPath, but J is the reference template, rather than I.
-   public WarpPath invertedCopy()
-   {
-      final WarpPath newWarpPath = new WarpPath();
-      for (int x=0; x<tsIindexes.size(); x++)
-         newWarpPath.addLast(((Integer)tsJindexes.get(x)).intValue(), ((Integer)tsIindexes.get(x)).intValue());
-
-      return newWarpPath;
-   }
-
-
-   // Swap I and J so that the warp path now indicates that J is the template rather than I.
-   public void invert()
-   {
-      for (int x=0; x<tsIindexes.size(); x++)
-      {
-         final int temp = tsIindexes.get(x);
-         tsIindexes.set(x, tsJindexes.get(x));
-         tsJindexes.set(x, temp);
-      }
-   }  // end invert()
-
-
    public ColMajorCell get(int index)
    {
       if ( (index>this.size()) || (index<0) )
