@@ -137,30 +137,6 @@ public class DTW
          }  // end for loop
       }  // end for loop
 
-/*
-// writes a section of the cost matrix to a file
-try
-{
-final PrintWriter out = new PrintWriter(new FileWriter("matrix1.csv"));
-for (int j=maxJ; j>=0; j--)
-{
-   for (int i=0; i<=maxI; i++)
-   {
-      out.print(costMatrix[i][j]);
-      if (i != maxI)
-         out.print(",");
-   }
-   out.println();
-}
-out.flush();
-out.close();
-}
-catch (Exception e)
-{
-   System.out.println(e);
-   e.printStackTrace();
-}
- */
       // Minimum Cost is at (maxIi,maxJ)
       final double minimumCost = costMatrix[maxI][maxJ];
 
@@ -338,30 +314,6 @@ catch (Exception e)
 
       // Minimum Cost is at (maxI, maxJ)
       final double minimumCost = costMatrix.get(maxI, maxJ);
-
-/*
-try
-{
-final PrintWriter out = new PrintWriter(new FileWriter("matrix2.csv"));
-for (int j=maxJ; j>=0; j--)
-{
-   for (int i=0; i<=maxI; i++)
-   {
-      out.print(costMatrix.get(i, j));
-      if (i != maxI)
-         out.print(",");
-   }
-   out.println();
-}
-out.flush();
-out.close();
-}
-catch (Exception e)
-{
-   System.out.println(e);
-   e.printStackTrace();
-}
-*/
       // Find the Warp Path by searching the matrix from the solution at
       //    (maxI, maxJ) to the beginning at (0,0).  At each step move through
       //    the matrix 1 step left, down, or diagonal, whichever has the
