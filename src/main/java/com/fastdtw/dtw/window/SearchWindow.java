@@ -5,7 +5,7 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw.dtw;
+package com.fastdtw.dtw.window;
 
 import java.util.ArrayList;
 import java.util.Arrays;

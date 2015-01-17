@@ -9,10 +9,10 @@ package com.fastdtw.examples;
 
 import java.util.ArrayList;
 
-import com.fastdtw.dtw.SearchWindow;
 import com.fastdtw.dtw.TimeWarpInfo;
 import com.fastdtw.dtw.WarpPath;
-import com.fastdtw.dtw.WarpPathWindow;
+import com.fastdtw.dtw.window.SearchWindow;
+import com.fastdtw.dtw.window.WarpPathWindow;
 import com.fastdtw.timeseries.PAA;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.DistanceFunction;

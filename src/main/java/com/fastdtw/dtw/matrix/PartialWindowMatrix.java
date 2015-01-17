@@ -5,11 +5,13 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw.dtw;
+package com.fastdtw.dtw.matrix;
+
+import com.fastdtw.dtw.window.SearchWindow;
 
 
 
-class PartialWindowMatrix implements CostMatrix
+public class PartialWindowMatrix implements CostMatrix
 {
 
    // PRIVATE DATA
@@ -24,7 +26,7 @@ class PartialWindowMatrix implements CostMatrix
 
 
    // CONSTRUCTOR
-   PartialWindowMatrix(SearchWindow searchWindow)
+   public PartialWindowMatrix(SearchWindow searchWindow)
    {
       window = searchWindow;
 

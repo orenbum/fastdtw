@@ -5,7 +5,7 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw.dtw;
+package com.fastdtw.dtw.matrix;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Random;
 
+import com.fastdtw.dtw.window.SearchWindow;
 import com.fastdtw.lang.TypeConversions;
 
 

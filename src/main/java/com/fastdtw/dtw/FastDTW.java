@@ -7,6 +7,8 @@
 
 package com.fastdtw.dtw;
 
+import com.fastdtw.dtw.window.ExpandedResWindow;
+import com.fastdtw.dtw.window.SearchWindow;
 import com.fastdtw.timeseries.PAA;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.DistanceFunction;

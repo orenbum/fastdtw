@@ -9,6 +9,10 @@ package com.fastdtw.dtw;
 
 import java.util.Iterator;
 
+import com.fastdtw.dtw.matrix.CostMatrix;
+import com.fastdtw.dtw.matrix.PartialWindowMatrix;
+import com.fastdtw.dtw.matrix.WindowMatrix;
+import com.fastdtw.dtw.window.SearchWindow;
 import com.fastdtw.matrix.ColMajorCell;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.DistanceFunction;

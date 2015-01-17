@@ -5,10 +5,10 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw.dtw;
+package com.fastdtw.dtw.matrix;
 
 
-interface CostMatrix
+public interface CostMatrix
 {
    public void put(int col, int row, double value);
 

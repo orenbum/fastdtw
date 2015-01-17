@@ -4,7 +4,9 @@
  * PROJECT DESCRIPTION
  */
 
-package com.fastdtw.dtw;
+package com.fastdtw.dtw.window;
+
+import com.fastdtw.dtw.WarpPath;
 
 
 /**

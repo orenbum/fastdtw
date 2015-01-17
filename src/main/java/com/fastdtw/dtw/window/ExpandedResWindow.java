@@ -5,8 +5,9 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw.dtw;
+package com.fastdtw.dtw.window;
 
+import com.fastdtw.dtw.WarpPath;
 import com.fastdtw.matrix.ColMajorCell;
 import com.fastdtw.timeseries.PAA;
 import com.fastdtw.timeseries.TimeSeries;

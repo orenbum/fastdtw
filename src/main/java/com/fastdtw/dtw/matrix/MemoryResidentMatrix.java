@@ -5,10 +5,12 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw.dtw;
+package com.fastdtw.dtw.matrix;
+
+import com.fastdtw.dtw.window.SearchWindow;
 
 
-class MemoryResidentMatrix implements CostMatrix
+public class MemoryResidentMatrix implements CostMatrix
 {
    // CONSTANTS
    private static final double OUT_OF_WINDOW_VALUE = Double.POSITIVE_INFINITY;
