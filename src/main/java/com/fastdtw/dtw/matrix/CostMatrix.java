@@ -7,13 +7,11 @@
 
 package com.fastdtw.dtw.matrix;
 
+public interface CostMatrix {
+    void put(int col, int row, double value);
 
-public interface CostMatrix
-{
-   public void put(int col, int row, double value);
+    double get(int col, int row);
 
-   public double get(int col, int row);
+    int size();
 
-   public int size();
-
-}  // end interface CostMatrix
+}
