@@ -18,3 +18,5 @@ Improvements sought for this massaging of the original project are
 * deploy to Maven Central for the convenience of all
 * reformat whitespace
 * add javadocs
+* trim API to essentials
+* support non-file input data
