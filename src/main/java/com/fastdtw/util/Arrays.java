@@ -31,15 +31,15 @@ public class Arrays
    }
 
 
-   public static int[] toIntArray(Collection c)
+   public static int[] toIntArray(Collection<Integer> c)
    {
       return Arrays.toPrimitiveArray((Integer[])c.toArray(new Integer[0]));
    }
 
 
-   public static Collection toCollection(boolean arr[])
+   public static Collection<Boolean> toCollection(boolean arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<Boolean> collection = new ArrayList<Boolean>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new Boolean(arr[x]));
 
@@ -47,9 +47,9 @@ public class Arrays
    }
 
 
-   public static Collection toCollection(byte arr[])
+   public static Collection<Byte> toCollection(byte arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<Byte> collection = new ArrayList<Byte>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new Byte(arr[x]));
 
@@ -57,9 +57,9 @@ public class Arrays
    }
 
 
-   public static Collection toCollection(char arr[])
+   public static Collection<Character> toCollection(char arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<Character> collection = new ArrayList<Character>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new Character(arr[x]));
 
@@ -67,9 +67,9 @@ public class Arrays
    }
 
 
-   public static Collection toCollection(double arr[])
+   public static Collection<Double> toCollection(double arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<Double> collection = new ArrayList<Double>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new Double(arr[x]));
 
@@ -77,9 +77,9 @@ public class Arrays
    }
 
 
-   public static Collection toCollection(float arr[])
+   public static Collection<Float> toCollection(float arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<Float> collection = new ArrayList<Float>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new Float(arr[x]));
 
@@ -87,9 +87,9 @@ public class Arrays
    }
 
 
-   public static Collection toCollection(int arr[])
+   public static Collection<Integer> toCollection(int arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<Integer> collection = new ArrayList<Integer>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new Integer(arr[x]));
 
@@ -97,9 +97,9 @@ public class Arrays
    }
 
 
-   public static Collection toCollection(long arr[])
+   public static Collection<Long> toCollection(long arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<Long> collection = new ArrayList<Long>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new Long(arr[x]));
 
@@ -107,9 +107,9 @@ public class Arrays
    }
 
 
-   public static Collection toCollection(short arr[])
+   public static Collection<Short> toCollection(short arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<Short> collection = new ArrayList<Short>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new Short(arr[x]));
 
@@ -117,9 +117,9 @@ public class Arrays
    }
 
 
-   public static Collection toCollection(String arr[])
+   public static Collection<String> toCollection(String arr[])
    {
-      final ArrayList collection = new ArrayList(arr.length);
+      final ArrayList<String> collection = new ArrayList<String>(arr.length);
       for (int x=0; x<arr.length; x++)
          collection.add(new String(arr[x]));
 
