@@ -10,9 +10,9 @@ package com.fastdtw.util;
 
 public class DistanceFunctionFactory
 {
-   public static DistanceFunction EUCLIDEAN_DIST_FN = new EuclideanDistance();
-   public static DistanceFunction MANHATTAN_DIST_FN = new ManhattanDistance();
-   public static DistanceFunction BINARY_DIST_FN = new BinaryDistance();
+   public static final DistanceFunction EUCLIDEAN_DIST_FN = new EuclideanDistance();
+   public static final DistanceFunction MANHATTAN_DIST_FN = new ManhattanDistance();
+   public static final DistanceFunction BINARY_DIST_FN = new BinaryDistance();
    
    public static DistanceFunction getDistFnByName(String distFnName)
    {
