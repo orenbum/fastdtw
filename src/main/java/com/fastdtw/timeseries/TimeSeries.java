@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 import com.fastdtw.util.Arrays;
 
@@ -55,9 +54,9 @@ public class TimeSeries
    // Copy Constructor
    public TimeSeries(TimeSeries origTS)
    {
-      labels = new ArrayList(origTS.labels);
-      timeReadings = new ArrayList(origTS.timeReadings);
-      tsArray = new ArrayList(origTS.tsArray);
+      labels = new ArrayList<String>(origTS.labels);
+      timeReadings = new ArrayList<Double>(origTS.timeReadings);
+      tsArray = new ArrayList<TimeSeriesPoint>(origTS.tsArray);
    }
 
 
