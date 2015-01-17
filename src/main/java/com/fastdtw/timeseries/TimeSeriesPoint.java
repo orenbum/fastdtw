@@ -32,12 +32,12 @@ public class TimeSeriesPoint
    }
 
 
-   public TimeSeriesPoint(Collection values)
+   public TimeSeriesPoint(Collection<Double> values)
    {
       measurements = new double[values.size()];
       hashCode = 0;
 
-      final Iterator i = values.iterator();
+      final Iterator<Double> i = values.iterator();
       int index = 0;
       while (i.hasNext())
       {
