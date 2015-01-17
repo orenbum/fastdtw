@@ -17,8 +17,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import com.fastdtw.util.Arrays;
-
 
 public class TimeSeries
 {
@@ -109,7 +107,7 @@ public class TimeSeries
             while (st.hasMoreTokens())
             {
                final String currentToken = st.nextToken();
-               if ( (colToInclude.length==0) || (Arrays.contains(colToInclude, currentCol)) )
+               if ( (colToInclude.length==0) || (contains(colToInclude, currentCol)) )
                   labels.add(currentToken);
 
                currentCol++;
@@ -176,7 +174,7 @@ public class TimeSeries
                while (st.hasMoreTokens())
                {
                   final String currentToken = st.nextToken();
-                  if ( (colToInclude.length==0) || (Arrays.contains(colToInclude, currentCol)) )
+                  if ( (colToInclude.length==0) || (contains(colToInclude, currentCol)) )
                   {
                      // Attempt to parse the next value to a Double value.
                      final Double nextValue;
@@ -482,6 +480,13 @@ public class TimeSeries
       this.tsArray.ensureCapacity(capacity);
    }
 
+   private static boolean contains(int arr[], int val)
+   {
+      for (int x=0; x<arr.length; x++)
+         if (arr[x] == val)
+            return true;
 
+      return false;
+   }
 
 }  // end class TimeSeries
