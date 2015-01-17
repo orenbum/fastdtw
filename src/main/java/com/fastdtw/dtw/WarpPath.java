@@ -17,170 +17,133 @@ import java.util.StringTokenizer;
 
 import com.fastdtw.matrix.ColMajorCell;
 
+public class WarpPath {
+    
+    private final ArrayList<Integer> tsIindexes;
+    private final ArrayList<Integer> tsJindexes;
 
+    public WarpPath() {
+        tsIindexes = new ArrayList<Integer>();
+        tsJindexes = new ArrayList<Integer>();
+    }
 
+    public WarpPath(int initialCapacity) {
+        this();
+        tsIindexes.ensureCapacity(initialCapacity);
+        tsJindexes.ensureCapacity(initialCapacity);
 
-public class WarpPath
-{
-   // DATA
-   private final ArrayList<Integer> tsIindexes;   // ArrayList of Integer
-   private final ArrayList<Integer> tsJindexes;   // ArrayList of Integer
+    }
 
+    public WarpPath(String inputFile) {
+        this();
 
-   // CONSTRUCTORS
-   public WarpPath()
-   {
-      tsIindexes = new ArrayList<Integer>();
-      tsJindexes = new ArrayList<Integer>();
-   }
+        BufferedReader br = null;
+        try {
+            // Record the Label names (fropm the top row.of the input file).
+            br = new BufferedReader(new FileReader(inputFile)); // open the
+                                                                // input file
 
-
-   public WarpPath(int initialCapacity)
-   {
-      this();
-      tsIindexes.ensureCapacity(initialCapacity);
-      tsJindexes.ensureCapacity(initialCapacity);
-
-   }
-
-
-   public WarpPath(String inputFile)
-   {
-    this();
-      
-    BufferedReader br=null;
-    try
-      {
-         // Record the Label names (fropm the top row.of the input file).
-          br = new BufferedReader (new FileReader (inputFile));  // open the input file
-
-         // Read Cluster assignments.
-         String line;
-         while ((line = br.readLine()) != null)   // read lines until end of file
-         {
-            final StringTokenizer st = new StringTokenizer(line, ",", false);
-            if (st.countTokens() == 2)
+            // Read Cluster assignments.
+            String line;
+            while ((line = br.readLine()) != null) // read lines until end of
+                                                   // file
             {
-               tsIindexes.add(new Integer(st.nextToken()));
-               tsJindexes.add(new Integer(st.nextToken()));
-            }
-            else
-               throw new RuntimeException("The Warp Path File '" + inputFile + "' has an incorrect format.  There must be\n" +
-                                       "two numbers per line separated by commas");
-         }  // end while loop
-      }
-      catch (FileNotFoundException e)
-      {
-         throw new RuntimeException("ERROR:  The file '" + inputFile + "' was not found.");
-      }
-      catch (IOException e)
-      {
-         throw new RuntimeException("ERROR:  Problem reading the file '" + inputFile + "'.");
-      }  
-      finally {
-          if (br!=null)
-            try {
-                br.close();
-            } catch (IOException e) {
-                //don't care
-            }
-      }
+                final StringTokenizer st = new StringTokenizer(line, ",", false);
+                if (st.countTokens() == 2) {
+                    tsIindexes.add(new Integer(st.nextToken()));
+                    tsJindexes.add(new Integer(st.nextToken()));
+                } else
+                    throw new RuntimeException("The Warp Path File '" + inputFile
+                            + "' has an incorrect format.  There must be\n"
+                            + "two numbers per line separated by commas");
+            } // end while loop
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("ERROR:  The file '" + inputFile + "' was not found.");
+        } catch (IOException e) {
+            throw new RuntimeException("ERROR:  Problem reading the file '" + inputFile + "'.");
+        } finally {
+            if (br != null)
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    // don't care
+                }
+        }
 
-   }
+    }
 
+    // FUNCTIONS
+    public int size() {
+        return tsIindexes.size();
+    }
 
-   // FUNCTIONS
-   public int size()
-   {
-      return tsIindexes.size();
-   }
+    public int minI() {
+        return ((Integer) tsIindexes.get(0)).intValue();
+    }
 
+    public int minJ() {
+        return ((Integer) tsJindexes.get(0)).intValue();
+    }
 
-   public int minI()
-   {
-      return ((Integer)tsIindexes.get(0)).intValue();
-   }
+    public int maxI() {
+        return ((Integer) tsIindexes.get(tsIindexes.size() - 1)).intValue();
+    }
 
+    public int maxJ() {
+        return ((Integer) tsJindexes.get(tsJindexes.size() - 1)).intValue();
+    }
 
-   public int minJ()
-   {
-      return ((Integer)tsJindexes.get(0)).intValue();
-   }
+    public void addFirst(int i, int j) {
+        tsIindexes.add(0, new Integer(i));
+        tsJindexes.add(0, new Integer(j));
+    }
 
-   public int maxI()
-   {
-      return ((Integer)tsIindexes.get( tsIindexes.size()-1 )).intValue();
-   }
+    public void addLast(int i, int j) {
+        tsIindexes.add(new Integer(i));
+        tsJindexes.add(new Integer(j));
+    }
 
+    public ColMajorCell get(int index) {
+        if ((index > this.size()) || (index < 0))
+            throw new NoSuchElementException();
+        else
+            return new ColMajorCell(((Integer) tsIindexes.get(index)).intValue(),
+                    ((Integer) tsJindexes.get(index)).intValue());
+    }
 
-   public int maxJ()
-   {
-      return ((Integer)tsJindexes.get( tsJindexes.size()-1 )).intValue();
-   }
+    public String toString() {
+        StringBuffer outStr = new StringBuffer("[");
+        for (int x = 0; x < tsIindexes.size(); x++) {
+            outStr.append("(" + tsIindexes.get(x) + "," + tsJindexes.get(x) + ")");
+            if (x < tsIindexes.size() - 1)
+                outStr.append(",");
+        } // end for loop
 
+        return new String(outStr.append("]"));
+    } // end toString()
 
-   public void addFirst(int i, int j)
-   {
-      tsIindexes.add(0, new Integer(i));
-      tsJindexes.add(0, new Integer(j));
-   }
+    public boolean equals(Object obj) {
+        if ((obj instanceof WarpPath)) // trivial false test
+        {
+            final WarpPath p = (WarpPath) obj;
+            if ((p.size() == this.size()) && (p.maxI() == this.maxI()) && (p.maxJ() == this.maxJ())) // less
+                                                                                                     // trivial
+                                                                                                     // reject
+            {
+                // Compare each value in the warp path for equality
+                for (int x = 0; x < this.size(); x++)
+                    if (!(this.get(x).equals(p.get(x))))
+                        return false;
 
-
-   public void addLast(int i, int j)
-   {
-      tsIindexes.add(new Integer(i));
-      tsJindexes.add(new Integer(j));
-   }
-
-   public ColMajorCell get(int index)
-   {
-      if ( (index>this.size()) || (index<0) )
-         throw new NoSuchElementException();
-      else
-         return new ColMajorCell(((Integer)tsIindexes.get(index)).intValue(),
-                                 ((Integer)tsJindexes.get(index)).intValue());
-   }
-
-
-   public String toString()
-   {
-      StringBuffer outStr = new StringBuffer("[");
-      for (int x=0; x<tsIindexes.size(); x++)
-      {
-         outStr.append("(" + tsIindexes.get(x) + "," + tsJindexes.get(x) + ")");
-         if (x < tsIindexes.size()-1)
-            outStr.append(",");
-      }  // end for loop
-
-      return new String(outStr.append("]"));
-   }  // end toString()
-
-
-   public boolean equals(Object obj)
-   {
-      if ( (obj instanceof WarpPath) )  // trivial false test
-      {
-         final WarpPath p = (WarpPath)obj;
-         if ( (p.size()==this.size()) && (p.maxI()==this.maxI()) && (p.maxJ()==this.maxJ())) // less trivial reject
-         {
-            // Compare each value in the warp path for equality
-            for (int x=0; x<this.size(); x++)
-               if ( !(this.get(x).equals(p.get(x))) )
-                  return false;
-
-            return true;
-         }
-         else
+                return true;
+            } else
+                return false;
+        } else
             return false;
-      }
-      else
-         return false;
-   }  // end equals
+    }
 
+    public int hashCode() {
+        return tsIindexes.hashCode() * tsJindexes.hashCode();
+    }
 
-   public int hashCode()
-   {
-      return tsIindexes.hashCode() * tsJindexes.hashCode();
-   }
-
-}  // end class WarpPath
+}

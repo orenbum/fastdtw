@@ -13,7 +13,6 @@ import com.fastdtw.timeseries.TimeSeries;
 public class FullWindow extends SearchWindow
 {
 
-   // CONSTRUCTOR
    public FullWindow(TimeSeries tsI, TimeSeries tsJ)
    {
       super(tsI.size(), tsJ.size());
@@ -22,7 +21,7 @@ public class FullWindow extends SearchWindow
       {
          super.markVisited(i, minJ());
          super.markVisited(i, maxJ());
-      }  // end for loop
-   }  // end CONSTRUCTOR
+      }  
+   }  
 
-}  // end class FullWindow
+}
