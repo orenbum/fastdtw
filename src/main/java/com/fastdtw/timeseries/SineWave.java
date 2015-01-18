@@ -18,20 +18,17 @@ import java.util.Random;
  * @since Jun 30, 2004
  */
 
-public class SineWave extends TimeSeries
-{
-   final private static Random rand = new Random();
+public class SineWave extends TimeSeries {
+    final private static Random rand = new Random();
 
+    public SineWave(int length, double cycles, double noise) {
+        super(1); // 1 dimensional TimeSeries
 
-   public SineWave(int length, double cycles, double noise)
-   {
-      super(1);  // 1 dimensional TimeSeries
+        for (int x = 0; x < length; x++) {
+            final double nextPoint = Math.sin((double) x / length * 2.0 * Math.PI * cycles)
+                    + rand.nextGaussian() * noise;
+            super.addLast((int) x, new TimeSeriesPoint(new double[] { nextPoint }));
+        }
+    }
 
-      for (int x=0; x<length; x++)
-      {
-         final double nextPoint = Math.sin((double)x/length*2.0*Math.PI*cycles) + rand.nextGaussian()*noise;
-         super.addLast((int)x, new TimeSeriesPoint(new double[] {nextPoint}));
-      }
-   }
-
-}  
+}

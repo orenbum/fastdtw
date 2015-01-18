@@ -12,8 +12,8 @@ import com.fastdtw.dtw.window.SearchWindow;
 public class MemoryResidentMatrix implements CostMatrix {
     private static final double OUT_OF_WINDOW_VALUE = Double.POSITIVE_INFINITY;
     private final SearchWindow window;
-    private double[] cellValues;
-    private int[] colOffsets;
+    private final double[] cellValues;
+    private final int[] colOffsets;
 
     MemoryResidentMatrix(SearchWindow searchWindow) {
         window = searchWindow;

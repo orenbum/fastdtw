@@ -7,7 +7,7 @@
 
 package com.fastdtw.dtw;
 
-public class TimeWarpInfo {
+public final class TimeWarpInfo {
     private final double distance;
     private final WarpPath path;
 
