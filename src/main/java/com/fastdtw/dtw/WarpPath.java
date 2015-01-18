@@ -81,6 +81,8 @@ public class WarpPath {
     } // end toString()
 
     public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
         if ((obj instanceof WarpPath)) // trivial false test
         {
             final WarpPath p = (WarpPath) obj;
