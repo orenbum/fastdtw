@@ -21,3 +21,12 @@ Improvements sought for this massaging of the original project are
 * trim API to essentials
 * support non-file input data
 * add immutability
+* add JMH benchmarks
+
+Benchmarks
+---------------
+To run benchmarks:
+
+```
+mvn clean install -P benchmark
+```
