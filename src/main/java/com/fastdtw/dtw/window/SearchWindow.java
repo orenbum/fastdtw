@@ -123,7 +123,7 @@ abstract public class SearchWindow
 
 
    // PROTECTED FUNCTIONS
-   //    Expands the current window by a s pecified radius.
+   //    Expands the current window by a specified radius.
    protected final void expandWindow(int radius)
    {
       if (radius > 0)
