@@ -83,13 +83,9 @@ public class WarpPath {
     public boolean equals(Object obj) {
         if (obj == null)
             return false;
-        if ((obj instanceof WarpPath)) // trivial false test
-        {
+        if ((obj instanceof WarpPath)) {
             final WarpPath p = (WarpPath) obj;
-            if ((p.size() == this.size()) && (p.maxI() == this.maxI()) && (p.maxJ() == this.maxJ())) // less
-                                                                                                     // trivial
-                                                                                                     // reject
-            {
+            if ((p.size() == this.size()) && (p.maxI() == this.maxI()) && (p.maxJ() == this.maxJ())) {
                 // Compare each value in the warp path for equality
                 for (int x = 0; x < this.size(); x++)
                     if (!(this.get(x).equals(p.get(x))))
