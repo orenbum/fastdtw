@@ -20,3 +20,4 @@ Improvements sought for this massaging of the original project are
 * add javadocs
 * trim API to essentials
 * support non-file input data
+* add immutability

@@ -23,12 +23,9 @@ public class SineWave extends TimeSeries
    final private static Random rand = new Random();
 
 
-   // CONSTRUCTORS
    public SineWave(int length, double cycles, double noise)
    {
       super(1);  // 1 dimensional TimeSeries
-
-     // final Random rand = new Random();
 
       for (int x=0; x<length; x++)
       {
@@ -37,8 +34,4 @@ public class SineWave extends TimeSeries
       }
    }
 
-
-   // PUBLIC FUNCTIONS
-
-
-}  // end class SineWave
+}  
