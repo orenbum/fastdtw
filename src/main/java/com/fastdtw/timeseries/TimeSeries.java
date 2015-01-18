@@ -28,11 +28,6 @@ public class TimeSeries {
     public ArrayList<Double> timeReadings; // ArrayList of Double
     public ArrayList<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
                                                // no time
-
-    // TODO don't use defaults delimiter/1stColTime... determine if not
-    // specified
-
-    // CONSTRUCTORS // TODO method to peek at determined delimiter, 1st col time
     TimeSeries() {
         this(new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint> ());
     }
@@ -49,13 +44,6 @@ public class TimeSeries {
         labels.add("Time");
         for (int x = 0; x < numOfDimensions; x++)
             labels.add("" + x);
-    }
-
-    // Copy Constructor
-    public TimeSeries(TimeSeries origTS) {
-        labels = new ArrayList<String>(origTS.labels);
-        timeReadings = new ArrayList<Double>(origTS.timeReadings);
-        tsArray = new ArrayList<TimeSeriesPoint>(origTS.tsArray);
     }
 
     public static TimeSeries create(String inputFile, boolean isFirstColTime) {
