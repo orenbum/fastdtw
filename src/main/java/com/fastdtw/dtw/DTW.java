@@ -8,7 +8,6 @@
 package com.fastdtw.dtw;
 
 import java.util.Enumeration;
-import java.util.Iterator;
 
 import com.fastdtw.dtw.matrix.CostMatrix;
 import com.fastdtw.dtw.matrix.PartialWindowMatrix;
@@ -285,10 +284,8 @@ public class DTW
         final Enumeration<ColMajorCell> matrixIterator = window.enumeration();
 
         while (matrixIterator.hasMoreElements()) {
-            final ColMajorCell currentCell = matrixIterator.nextElement(); // current
-                                                                    // cell
-                                                                    // being
-                                                                    // filled
+            // current cell being filled
+            final ColMajorCell currentCell = matrixIterator.nextElement(); 
             final int i = currentCell.getCol();
             final int j = currentCell.getRow();
 
