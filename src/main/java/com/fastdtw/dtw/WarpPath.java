@@ -7,72 +7,30 @@
 
 package com.fastdtw.dtw;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
 
 import com.fastdtw.matrix.ColMajorCell;
 
 public class WarpPath {
-    
-    private final ArrayList<Integer> tsIindexes;
-    private final ArrayList<Integer> tsJindexes;
+
+    private final List<Integer> tsIindexes;
+    private final List<Integer> tsJindexes;
+
+    private WarpPath(List<Integer> tsIindexes, List<Integer> tsJindexes) {
+        this.tsIindexes = tsIindexes;
+        this.tsJindexes = tsJindexes;
+    }
 
     public WarpPath() {
-        tsIindexes = new ArrayList<Integer>();
-        tsJindexes = new ArrayList<Integer>();
+        this(16);
     }
 
     public WarpPath(int initialCapacity) {
-        this();
-        tsIindexes.ensureCapacity(initialCapacity);
-        tsJindexes.ensureCapacity(initialCapacity);
-
+        this(new ArrayList<Integer>(initialCapacity), new ArrayList<Integer>(initialCapacity));
     }
 
-    public WarpPath(String inputFile) {
-        this();
-
-        BufferedReader br = null;
-        try {
-            // Record the Label names (fropm the top row.of the input file).
-            br = new BufferedReader(new FileReader(inputFile)); // open the
-                                                                // input file
-
-            // Read Cluster assignments.
-            String line;
-            while ((line = br.readLine()) != null) // read lines until end of
-                                                   // file
-            {
-                final StringTokenizer st = new StringTokenizer(line, ",", false);
-                if (st.countTokens() == 2) {
-                    tsIindexes.add(new Integer(st.nextToken()));
-                    tsJindexes.add(new Integer(st.nextToken()));
-                } else
-                    throw new RuntimeException("The Warp Path File '" + inputFile
-                            + "' has an incorrect format.  There must be\n"
-                            + "two numbers per line separated by commas");
-            } // end while loop
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("ERROR:  The file '" + inputFile + "' was not found.");
-        } catch (IOException e) {
-            throw new RuntimeException("ERROR:  Problem reading the file '" + inputFile + "'.");
-        } finally {
-            if (br != null)
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    // don't care
-                }
-        }
-
-    }
-
-    // FUNCTIONS
     public int size() {
         return tsIindexes.size();
     }
