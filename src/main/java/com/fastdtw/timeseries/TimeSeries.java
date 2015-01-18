@@ -28,8 +28,9 @@ public class TimeSeries {
     public ArrayList<Double> timeReadings; // ArrayList of Double
     public ArrayList<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
                                                // no time
+
     TimeSeries() {
-        this(new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint> ());
+        this(new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint>());
     }
 
     public TimeSeries(List<String> labels, ArrayList<Double> timeReadings,
@@ -58,20 +59,22 @@ public class TimeSeries {
         return create(inputFile, ZERO_ARRAY, isFirstColTime, DEFAULT_IS_LABELED, delimiter);
     }
 
-    public static TimeSeries create(String inputFile, boolean isFirstColTime, boolean isLabeled, char delimiter) {
+    public static TimeSeries create(String inputFile, boolean isFirstColTime, boolean isLabeled,
+            char delimiter) {
         return create(inputFile, ZERO_ARRAY, isFirstColTime, isLabeled, delimiter);
     }
 
     public static TimeSeries create(String inputFile, int[] colToInclude, boolean isFirstColTime) {
-        return create(inputFile, colToInclude, isFirstColTime, DEFAULT_IS_LABELED, DEFAULT_DELIMITER);
+        return create(inputFile, colToInclude, isFirstColTime, DEFAULT_IS_LABELED,
+                DEFAULT_DELIMITER);
     }
 
     public static TimeSeries create(String inputFile, int[] colToInclude, boolean isFirstColTime,
             boolean isLabeled, char delimiter) {
-        List<String> labels=new ArrayList<String>();
-        ArrayList<Double>  timeReadings = new ArrayList<Double>();
-        ArrayList<TimeSeriesPoint> tsArray  = new ArrayList<TimeSeriesPoint>();
-        
+        List<String> labels = new ArrayList<String>();
+        ArrayList<Double> timeReadings = new ArrayList<Double>();
+        ArrayList<TimeSeriesPoint> tsArray = new ArrayList<TimeSeriesPoint>();
+
         BufferedReader br = null;
         try {
             // Record the Label names (fropm the top row.of the input file).
@@ -127,9 +130,8 @@ public class TimeSeries {
 
                 // Close and re-open the file.
                 br.close();
-                br = new BufferedReader(new FileReader(inputFile)); // open the
-                                                                    // input
-                                                                    // file
+                // open the input file
+                br = new BufferedReader(new FileReader(inputFile));
             } // end if
 
             // Read in all of the values in the data file.
@@ -166,14 +168,12 @@ public class TimeSeries {
                             }
 
                             currentLineValues.add(nextValue);
-                        } // end if
-
+                        }
                         currentCol++;
-                    } // end while loop
+                    }
 
                     // Update the private data with the current Row that has
-                    // been
-                    // read.
+                    // been read.
                     if (isFirstColTime)
                         timeReadings.add(currentLineValues.get(0));
                     else
@@ -186,10 +186,8 @@ public class TimeSeries {
                     final TimeSeriesPoint readings = new TimeSeriesPoint(currentLineValues.subList(
                             firstMeasurement, currentLineValues.size()));
                     tsArray.add(readings);
-                    // timeValueMap.put(timeReadings.get(timeReadings.size()-1),
-                    // readings);
-                } // end if
-            } // end while loop
+                }
+            }
             return new TimeSeries(labels, timeReadings, tsArray);
         } catch (FileNotFoundException e) {
             throw new RuntimeException("ERROR:  The file '" + inputFile + "' was not found.");
@@ -203,9 +201,8 @@ public class TimeSeries {
                     // don't care
                 }
         }
-    } // end constructor
+    }
 
-    // FUNCTIONS
     public void save(File outFile) throws IOException {
         final PrintWriter out = new PrintWriter(new FileOutputStream(outFile));
         out.write(this.toString());
@@ -297,7 +294,7 @@ public class TimeSeries {
 
         timeReadings.add(0, new Double(time));
         tsArray.add(0, values);
-    } // end addFirst(..)
+    }
 
     public void addLast(double time, TimeSeriesPoint values) {
         if (labels.size() != values.size() + 1) // labels include a label for
@@ -313,7 +310,7 @@ public class TimeSeries {
 
         timeReadings.add(new Double(time));
         tsArray.add(values);
-    } // end addLast(..)
+    }
 
     public void removeFirst() {
         if (this.size() == 0)
@@ -322,8 +319,8 @@ public class TimeSeries {
         else {
             timeReadings.remove(0);
             tsArray.remove(0);
-        } // end if
-    } // end removeFirst()
+        }
+    }
 
     public void removeLast() {
         if (this.size() == 0)
@@ -332,8 +329,8 @@ public class TimeSeries {
         else {
             tsArray.remove(timeReadings.size() - 1);
             timeReadings.remove(timeReadings.size() - 1);
-        } // end if
-    } // end removeFirst()
+        }
+    }
 
     public void normalize() {
         // Calculate the mean of each FD.
@@ -354,7 +351,7 @@ public class TimeSeries {
                 variance += Math.abs(getMeasurement(row, col) - mean[col]);
 
             stdDev[col] = variance / this.size();
-        } // end for loop
+        }
 
         // Normalize the values in the data using the mean and standard
         // deviation
@@ -368,14 +365,14 @@ public class TimeSeries {
                 else
                     // typical case
                     setMeasurement(row, col, (getMeasurement(row, col) - mean[col]) / stdDev[col]);
-            } // end for loop
-        } // end for loop
-    } // end normalize();
+            }
+        }
+    }
 
     public String toString() {
         final StringBuffer outStr = new StringBuffer();
         /*
-         * // Write labels for (int x=0; x<labels.size(); x++) {
+         * Write labels for (int x=0; x<labels.size(); x++) {
          * outStr.append(labels.get(x)); if (x < labels.size()-1)
          * outStr.append(","); else outStr.append("\n"); } // end for loop
          */
@@ -391,10 +388,10 @@ public class TimeSeries {
 
             if (r < timeReadings.size() - 1)
                 outStr.append("\n");
-        } // end for loop
+        }
 
         return outStr.toString();
-    } // end toString()
+    }
 
     protected void setMaxCapacity(int capacity) {
         this.timeReadings.ensureCapacity(capacity);
@@ -409,4 +406,4 @@ public class TimeSeries {
         return false;
     }
 
-} // end class TimeSeries
+}
