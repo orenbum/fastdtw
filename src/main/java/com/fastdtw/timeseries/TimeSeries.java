@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class TimeSeries {
+
     private static final int[] ZERO_ARRAY = new int[0];
     private static final boolean DEFAULT_IS_TIME_1ST_COL = true;
     private static final char DEFAULT_DELIMITER = ',';
@@ -29,15 +30,15 @@ public class TimeSeries {
     public ArrayList<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
                                                // no time
 
-    TimeSeries() {
-        this(new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint>());
-    }
-
     public TimeSeries(List<String> labels, ArrayList<Double> timeReadings,
             ArrayList<TimeSeriesPoint> tsArray) {
         this.labels = labels;
         this.timeReadings = timeReadings;
         this.tsArray = tsArray;
+    }
+    
+    TimeSeries() {
+        this(new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint>());
     }
 
     public TimeSeries(int numOfDimensions) {
