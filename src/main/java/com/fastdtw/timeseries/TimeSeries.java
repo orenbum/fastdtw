@@ -58,30 +58,32 @@ public class TimeSeries {
         tsArray = new ArrayList<TimeSeriesPoint>(origTS.tsArray);
     }
 
-    public TimeSeries(String inputFile, boolean isFirstColTime) {
-        this(inputFile, ZERO_ARRAY, isFirstColTime);
+    public static TimeSeries create(String inputFile, boolean isFirstColTime) {
+        return create(inputFile, ZERO_ARRAY, isFirstColTime);
     }
 
-    public TimeSeries(String inputFile, char delimiter) {
-        this(inputFile, ZERO_ARRAY, DEFAULT_IS_TIME_1ST_COL, DEFAULT_IS_LABELED, delimiter);
+    public static TimeSeries create(String inputFile, char delimiter) {
+        return create(inputFile, ZERO_ARRAY, DEFAULT_IS_TIME_1ST_COL, DEFAULT_IS_LABELED, delimiter);
     }
 
-    public TimeSeries(String inputFile, boolean isFirstColTime, char delimiter) {
-        this(inputFile, ZERO_ARRAY, isFirstColTime, DEFAULT_IS_LABELED, delimiter);
+    public static TimeSeries create(String inputFile, boolean isFirstColTime, char delimiter) {
+        return create(inputFile, ZERO_ARRAY, isFirstColTime, DEFAULT_IS_LABELED, delimiter);
     }
 
-    public TimeSeries(String inputFile, boolean isFirstColTime, boolean isLabeled, char delimiter) {
-        this(inputFile, ZERO_ARRAY, isFirstColTime, isLabeled, delimiter);
+    public static TimeSeries create(String inputFile, boolean isFirstColTime, boolean isLabeled, char delimiter) {
+        return create(inputFile, ZERO_ARRAY, isFirstColTime, isLabeled, delimiter);
     }
 
-    public TimeSeries(String inputFile, int[] colToInclude, boolean isFirstColTime) {
-        this(inputFile, colToInclude, isFirstColTime, DEFAULT_IS_LABELED, DEFAULT_DELIMITER);
+    public static TimeSeries create(String inputFile, int[] colToInclude, boolean isFirstColTime) {
+        return create(inputFile, colToInclude, isFirstColTime, DEFAULT_IS_LABELED, DEFAULT_DELIMITER);
     }
 
-    public TimeSeries(String inputFile, int[] colToInclude, boolean isFirstColTime,
+    public static TimeSeries create(String inputFile, int[] colToInclude, boolean isFirstColTime,
             boolean isLabeled, char delimiter) {
-        this();
-
+        List<String> labels=new ArrayList<String>();
+        ArrayList<Double>  timeReadings = new ArrayList<Double>();
+        ArrayList<TimeSeriesPoint> tsArray  = new ArrayList<TimeSeriesPoint>();
+        
         BufferedReader br = null;
         try {
             // Record the Label names (fropm the top row.of the input file).
@@ -200,6 +202,7 @@ public class TimeSeries {
                     // readings);
                 } // end if
             } // end while loop
+            return new TimeSeries(labels, timeReadings, tsArray);
         } catch (FileNotFoundException e) {
             throw new RuntimeException("ERROR:  The file '" + inputFile + "' was not found.");
         } catch (IOException e) {
