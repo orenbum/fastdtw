@@ -1,4 +1,4 @@
-package com.fastdtw.examples;
+package com.fastdtw;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;

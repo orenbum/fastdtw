@@ -5,7 +5,7 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw.examples;
+package com.fastdtw;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

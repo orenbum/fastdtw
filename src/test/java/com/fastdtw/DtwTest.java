@@ -5,7 +5,7 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw.examples;
+package com.fastdtw;
 
 import static org.junit.Assert.assertEquals;
 
