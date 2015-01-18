@@ -7,6 +7,7 @@
 
 package com.fastdtw.dtw;
 
+import java.util.Enumeration;
 import java.util.Iterator;
 
 import com.fastdtw.dtw.matrix.CostMatrix;
@@ -215,11 +216,11 @@ public class DTW
 
       // Get an iterator that traverses the window cells in the order that the cost matrix is filled.
       //    (first to last row (1..maxI), bottom to top (1..MaxJ)
-      final Iterator<ColMajorCell> matrixIterator = window.iterator();
+      final Enumeration<ColMajorCell> matrixIterator = window.enumeration();
 
-      while (matrixIterator.hasNext())
+      while (matrixIterator.hasMoreElements())
       {
-         final ColMajorCell currentCell = (ColMajorCell)matrixIterator.next();  // current cell being filled
+         final ColMajorCell currentCell = (ColMajorCell)matrixIterator.nextElement();  // current cell being filled
          final int i = currentCell.getCol();
          final int j = currentCell.getRow();
 
@@ -281,10 +282,10 @@ public class DTW
         // Get an iterator that traverses the window cells in the order that the
         // cost matrix is filled.
         // (first to last row (1..maxI), bottom to top (1..MaxJ)
-        final Iterator<ColMajorCell> matrixIterator = window.iterator();
+        final Enumeration<ColMajorCell> matrixIterator = window.enumeration();
 
-        while (matrixIterator.hasNext()) {
-            final ColMajorCell currentCell = matrixIterator.next(); // current
+        while (matrixIterator.hasMoreElements()) {
+            final ColMajorCell currentCell = matrixIterator.nextElement(); // current
                                                                     // cell
                                                                     // being
                                                                     // filled

@@ -10,6 +10,7 @@ package com.fastdtw.dtw.window;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -93,9 +94,9 @@ abstract public class SearchWindow
    // Iterates through all cells in the search window in the order that Dynamic
    //    Time Warping needs to evaluate them. (first to last column (0..maxI),
    //    bottom up  (o..maxJ))
-   public final Iterator<ColMajorCell> iterator()
+   public final Enumeration<ColMajorCell> enumeration()
    {
-      return new SearchWindowIterator(this);
+      return new SearchWindowEnumeration(this);
    }
 
 
@@ -142,8 +143,8 @@ abstract public class SearchWindow
          // Add all cells in the current Window to an array, iterating through the window and expanding the window
          //    at the same time is not possible because the window can't be changed during iteration through the cells.
          final ArrayList<ColMajorCell> windowCells = new ArrayList<ColMajorCell>(this.size());
-         for (final Iterator<ColMajorCell> cellIter=this.iterator(); cellIter.hasNext();)
-            windowCells.add(cellIter.next());
+         for (final Enumeration<ColMajorCell> cellIter=this.enumeration(); cellIter.hasMoreElements();)
+            windowCells.add(cellIter.nextElement());
 
 
          for (int cell=0; cell<windowCells.size(); cell++)
@@ -312,7 +313,7 @@ abstract public class SearchWindow
 
 
    // A private class that is a fail-fast iterator through the search window.
-   private final class SearchWindowIterator implements Iterator<ColMajorCell>
+   private final class SearchWindowEnumeration implements Enumeration<ColMajorCell>
    {
       // PRIVATE DATA
       private int currentI;
@@ -323,7 +324,7 @@ abstract public class SearchWindow
 
 
       // CONSTRUCTOR
-      private SearchWindowIterator(SearchWindow w)
+      private SearchWindowEnumeration(SearchWindow w)
       {
          // Intiialize values
          window = w;
@@ -334,14 +335,15 @@ abstract public class SearchWindow
       }
 
 
-      // PUBLIC FUNCTIONS
-      public boolean hasNext()
+      @Override
+      public boolean hasMoreElements()
       {
          return hasMoreElements;
       }
 
 
-      public ColMajorCell next()
+      @Override
+      public ColMajorCell nextElement()
       {
          if (modCount != expectedModCount)
             throw new ConcurrentModificationException();
@@ -361,11 +363,6 @@ abstract public class SearchWindow
          }  // end if
       }  // end next()
 
-
-      public void remove()
-      {
-         throw new UnsupportedOperationException();
-      }
    }  // end inner class SearchWindowIterator
 
 
