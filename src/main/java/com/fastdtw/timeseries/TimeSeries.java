@@ -23,27 +23,27 @@ public class TimeSeries {
     private static final boolean DEFAULT_IS_LABELED = true;
 
     public List<String> labels; // labels for each column
-    public ArrayList<Double> timeReadings; // ArrayList of Double
-    public ArrayList<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
-                                               // no time
+    public List<Double> timeReadings; // ArrayList of Double
+    public List<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
+                                          // no time
 
-    public TimeSeries(List<String> labels, ArrayList<Double> timeReadings,
-            ArrayList<TimeSeriesPoint> tsArray) {
+    public TimeSeries(List<String> labels, List<Double> timeReadings, List<TimeSeriesPoint> tsArray) {
         this.labels = labels;
         this.timeReadings = timeReadings;
         this.tsArray = tsArray;
     }
-    
+
     TimeSeries() {
         this(new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint>());
     }
 
     public TimeSeries(int numOfDimensions) {
-        this(createLabels(numOfDimensions), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint>());
+        this(createLabels(numOfDimensions), new ArrayList<Double>(numOfDimensions),
+                new ArrayList<TimeSeriesPoint>(numOfDimensions));
     }
-    
+
     private static List<String> createLabels(int numOfDimensions) {
-        List<String> labels=new ArrayList<String>();
+        List<String> labels = new ArrayList<String>(numOfDimensions + 1);
         labels.add("Time");
         for (int x = 0; x < numOfDimensions; x++)
             labels.add("" + x);
@@ -261,7 +261,6 @@ public class TimeSeries {
         tsArray.add(values);
     }
 
-   
     public String toString() {
         final StringBuffer outStr = new StringBuffer();
         /*
