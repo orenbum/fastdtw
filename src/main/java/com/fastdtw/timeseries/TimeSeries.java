@@ -286,11 +286,6 @@ public class TimeSeries {
         return outStr.toString();
     }
 
-    protected void setMaxCapacity(int capacity) {
-        this.timeReadings.ensureCapacity(capacity);
-        this.tsArray.ensureCapacity(capacity);
-    }
-
     private static boolean contains(int arr[], int val) {
         for (int x = 0; x < arr.length; x++)
             if (arr[x] == val)
