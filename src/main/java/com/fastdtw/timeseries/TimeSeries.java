@@ -8,12 +8,9 @@
 package com.fastdtw.timeseries;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -204,26 +201,8 @@ public class TimeSeries {
         }
     }
 
-    public void save(File outFile) throws IOException {
-        final PrintWriter out = new PrintWriter(new FileOutputStream(outFile));
-        out.write(this.toString());
-        out.flush();
-        out.close();
-    }
-
-    public void clear() {
-        labels.clear();
-        timeReadings.clear();
-        tsArray.clear();
-        // timeValueMap.clear();
-    }
-
     public int size() {
         return timeReadings.size();
-    }
-
-    public int numOfPts() {
-        return this.size();
     }
 
     public int numOfDimensions() {
@@ -234,25 +213,8 @@ public class TimeSeries {
         return ((Double) timeReadings.get(n)).doubleValue();
     }
 
-    public String getLabel(int index) {
-        return (String) labels.get(index);
-    }
-
-    public String[] getLabelsArr() {
-        final String[] labelArr = new String[labels.size()];
-        for (int x = 0; x < labels.size(); x++)
-            labelArr[x] = (String) labels.get(x);
-        return labelArr;
-    }
-
     public List<String> getLabels() {
         return labels;
-    }
-
-    public void setLabels(String[] newLabels) {
-        labels.clear();
-        for (int x = 0; x < newLabels.length; x++)
-            labels.add(newLabels[x]);
     }
 
     public void setLabels(List<String> newLabels) {
@@ -282,21 +244,6 @@ public class TimeSeries {
         ((TimeSeriesPoint) tsArray.get(pointIndex)).set(valueIndex, newValue);
     }
 
-    public void addFirst(double time, TimeSeriesPoint values) {
-        if (labels.size() != values.size() + 1) // labels include a label for
-                                                // time
-            throw new RuntimeException("ERROR:  The TimeSeriesPoint: " + values
-                    + " contains the wrong number of values. " + "expected:  " + labels.size()
-                    + ", " + "found: " + values.size());
-
-        if (time >= (timeReadings.get(0)).doubleValue())
-            throw new RuntimeException("ERROR:  The point being inserted into the "
-                    + "beginning of the time series does not have " + "the correct time sequence. ");
-
-        timeReadings.add(0, new Double(time));
-        tsArray.add(0, values);
-    }
-
     public void addLast(double time, TimeSeriesPoint values) {
         if (labels.size() != values.size() + 1) // labels include a label for
                                                 // time
@@ -313,63 +260,7 @@ public class TimeSeries {
         tsArray.add(values);
     }
 
-    public void removeFirst() {
-        if (this.size() == 0)
-            System.err
-                    .println("WARNING:  TimeSeriesPoint:removeFirst() called on an empty time series!");
-        else {
-            timeReadings.remove(0);
-            tsArray.remove(0);
-        }
-    }
-
-    public void removeLast() {
-        if (this.size() == 0)
-            System.err
-                    .println("WARNING:  TimeSeriesPoint:removeLast() called on an empty time series!");
-        else {
-            tsArray.remove(timeReadings.size() - 1);
-            timeReadings.remove(timeReadings.size() - 1);
-        }
-    }
-
-    public void normalize() {
-        // Calculate the mean of each FD.
-        final double[] mean = new double[this.numOfDimensions()];
-        for (int col = 0; col < numOfDimensions(); col++) {
-            double currentSum = 0.0;
-            for (int row = 0; row < this.size(); row++)
-                currentSum += this.getMeasurement(row, col);
-
-            mean[col] = currentSum / this.size();
-        } // end for loop
-
-        // Calculate the standard deviation of each FD.
-        final double[] stdDev = new double[numOfDimensions()];
-        for (int col = 0; col < numOfDimensions(); col++) {
-            double variance = 0.0;
-            for (int row = 0; row < this.size(); row++)
-                variance += Math.abs(getMeasurement(row, col) - mean[col]);
-
-            stdDev[col] = variance / this.size();
-        }
-
-        // Normalize the values in the data using the mean and standard
-        // deviation
-        // for each FD. => Xrc = (Xrc-Mc)/SDc
-        for (int row = 0; row < this.size(); row++) {
-            for (int col = 0; col < numOfDimensions(); col++) {
-                // Normalize data point.
-                if (stdDev[col] == 0.0) // prevent divide by zero errors
-                    setMeasurement(row, col, 0.0); // stdDev is zero means all
-                                                   // pts identical
-                else
-                    // typical case
-                    setMeasurement(row, col, (getMeasurement(row, col) - mean[col]) / stdDev[col]);
-            }
-        }
-    }
-
+   
     public String toString() {
         final StringBuffer outStr = new StringBuffer();
         /*
