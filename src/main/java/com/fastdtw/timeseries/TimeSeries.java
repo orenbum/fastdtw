@@ -245,10 +245,6 @@ public class TimeSeries {
         return ((TimeSeriesPoint) tsArray.get(pointIndex)).toArray();
     }
 
-    public void setMeasurement(int pointIndex, int valueIndex, double newValue) {
-        ((TimeSeriesPoint) tsArray.get(pointIndex)).set(valueIndex, newValue);
-    }
-
     public void addLast(double time, TimeSeriesPoint values) {
         if (labels.size() != values.size() + 1) // labels include a label for
                                                 // time

@@ -19,21 +19,11 @@ public class PAA extends TimeSeries
 
    public PAA(TimeSeries ts, int shrunkSize)
    {
-      if (shrunkSize > ts.size())
-         throw new RuntimeException("ERROR:  The size of an aggregate representation may not be largerr than the \n" +
-                                 "original time series (shrunkSize=" + shrunkSize + " , origSize=" + ts.size() + ").");
-
-      if (shrunkSize <= 0)
-         throw new RuntimeException("ERROR:  The size of an aggregate representation must be greater than zero and \n" +
-                                 "no larger than the original time series.");
-
+       super(validate(ts,shrunkSize));
+      
       // Initialize private data.
       this.originalLength = ts.size();
       this.aggPtSize = new int[shrunkSize];
-
-      // Ensures that the data structure storing the time series will not need
-      //    to be expanded more than once.  (not necessary, for optimization)
-      super.setMaxCapacity(shrunkSize);
 
       // Initialize the new aggregate time series.
       this.setLabels(ts.getLabels());
@@ -81,7 +71,19 @@ public class PAA extends TimeSeries
    }  // end Constructor
 
 
-   public int originalSize()
+   private static int validate(TimeSeries ts, int shrunkSize) {
+       if (shrunkSize > ts.size())
+           throw new RuntimeException("ERROR:  The size of an aggregate representation may not be largerr than the \n" +
+                                   "original time series (shrunkSize=" + shrunkSize + " , origSize=" + ts.size() + ").");
+
+        if (shrunkSize <= 0)
+           throw new RuntimeException("ERROR:  The size of an aggregate representation must be greater than zero and \n" +
+                                   "no larger than the original time series.");
+        return shrunkSize;
+}
+
+
+public int originalSize()
    {
       return originalLength;
    }
