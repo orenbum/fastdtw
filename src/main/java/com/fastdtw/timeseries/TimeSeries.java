@@ -39,10 +39,15 @@ public class TimeSeries {
     }
 
     public TimeSeries(int numOfDimensions) {
-        this();
+        this(createLabels(numOfDimensions), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint>());
+    }
+    
+    private static List<String> createLabels(int numOfDimensions) {
+        List<String> labels=new ArrayList<String>();
         labels.add("Time");
         for (int x = 0; x < numOfDimensions; x++)
             labels.add("" + x);
+        return labels;
     }
 
     public static TimeSeries create(String inputFile, boolean isFirstColTime) {
