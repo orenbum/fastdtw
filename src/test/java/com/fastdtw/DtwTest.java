@@ -7,12 +7,9 @@
 
 package com.fastdtw;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import com.fastdtw.dtw.TimeWarpInfo;
-import com.fastdtw.dtw.WarpPath;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.EuclideanDistance;
 
@@ -27,21 +24,8 @@ public class DtwTest {
 
         final TimeWarpInfo info = com.fastdtw.dtw.DTW.getWarpInfoBetween(tsI, tsJ,
                 new EuclideanDistance());
-        assertEquals(9.139400704860002, info.getDistance(), PRECISION);
-        // [(0,0),(0,1),(1,2),(2,3),...,(272,272),(273,272),(274,273),(274,274)]
-        WarpPath p = info.getPath();
-        assertEquals(0, p.get(0).getCol());
-        assertEquals(0, p.get(0).getRow());
-        assertEquals(0, p.get(1).getCol());
-        assertEquals(1, p.get(1).getRow());
-
-        assertEquals(1, p.get(2).getCol());
-        assertEquals(2, p.get(2).getRow());
-
-        assertEquals(274, p.get(p.size() - 2).getCol());
-        assertEquals(273, p.get(p.size() - 2).getRow());
-        assertEquals(274, p.get(p.size() - 1).getCol());
-        assertEquals(274, p.get(p.size() - 1).getRow());
+        TestingUtil.assertDifferenceIsOk(info);
     }
 
+    
 }
