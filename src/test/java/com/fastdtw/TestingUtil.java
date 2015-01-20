@@ -11,7 +11,7 @@ import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.timeseries.TimeSeriesBase;
 import com.fastdtw.timeseries.TimeSeriesPoint;
 
-public class TestingUtil {
+public final class TestingUtil {
     
     public static TimeSeries load(String resourceName) {
         InputStream is = FastDtwTest.class.getResourceAsStream(resourceName);

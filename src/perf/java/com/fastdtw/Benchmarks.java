@@ -10,10 +10,8 @@ import com.fastdtw.util.EuclideanDistance;
 @State(Scope.Benchmark)
 public class Benchmarks {
 
-    private final TimeSeries tsI = TimeSeries.create("src/test/resources/trace0.csv", false, false,
-            ',');
-    private final TimeSeries tsJ = TimeSeries.create("src/test/resources/trace1.csv", false, false,
-            ',');
+    private final TimeSeries tsI = TestingUtil.load("/trace0.csv");
+    private final TimeSeries tsJ = TestingUtil.load("/trace1.csv");
 
     @Benchmark
     public void fastDtw() {
