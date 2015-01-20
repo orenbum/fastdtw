@@ -7,6 +7,7 @@
 
 package com.fastdtw.timeseries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PAA implements TimeSeries {
@@ -16,14 +17,14 @@ public class PAA implements TimeSeries {
     private final TimeSeries base;
 
     public PAA(TimeSeries ts, int shrunkSize) {
-        base = new TimeSeriesBase(validate(ts, shrunkSize));
-
+        validate(ts, shrunkSize);
+        List<String> labels = new ArrayList<String>(ts.getLabels());
+        List<Double> timeReadings = new ArrayList<Double>();
+        List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
+        
         // Initialize private data.
         this.originalLength = ts.size();
         this.aggPtSize = new int[shrunkSize];
-
-        // Initialize the new aggregate time series.
-        this.setLabels(ts.getLabels());
 
         // Determine the size of each sampled point. (may be a fraction)
         final double reducedPtSize = (double) ts.size() / (double) shrunkSize;
@@ -36,7 +37,7 @@ public class PAA implements TimeSeries {
         // Keep averaging ranges of points into aggregate points until all of
         // the data is averaged.
         while (ptToReadFrom < ts.size()) {
-            ptToReadTo = (int) Math.round(reducedPtSize * (this.size() + 1)) - 1; // determine
+            ptToReadTo = (int) Math.round(reducedPtSize * (timeReadings.size() + 1)) - 1; // determine
                                                                                   // end
                                                                                   // of
                                                                                   // current
@@ -70,13 +71,14 @@ public class PAA implements TimeSeries {
                                                                          // measurement
 
             // Add the computed average value to the aggregate approximation.
-            this.aggPtSize[base.size()] = ptsToRead;
-            base.addLast(timeSum, new TimeSeriesPoint(measurementSums));
-
+            this.aggPtSize[timeReadings.size()] = ptsToRead;
+            timeReadings.add(timeSum);
+            points.add(new TimeSeriesPoint(measurementSums));
            ptToReadFrom = ptToReadTo + 1; // next window of points to average
                                            // startw where the last window ended
         } // end while loop
-    } // end Constructor
+        base = new TimeSeriesBase(labels, timeReadings, points);
+    } 
 
     private static int validate(TimeSeries ts, int shrunkSize) {
         if (shrunkSize > ts.size())
