@@ -33,10 +33,6 @@ public class TimeSeries {
         this.tsArray = tsArray;
     }
 
-    TimeSeries() {
-        this(new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<TimeSeriesPoint>());
-    }
-
     public TimeSeries(int numOfDimensions) {
         this(createLabels(numOfDimensions), new ArrayList<Double>(numOfDimensions),
                 new ArrayList<TimeSeriesPoint>(numOfDimensions));
