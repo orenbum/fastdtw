@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PAA implements TimeSeries {
-    // PRIVATE DATA
-    private int[] aggPtSize; // ArrayList of Integer
+    private int[] aggPtSize;
     private final int originalLength;
     private final TimeSeries base;
 
@@ -21,7 +20,7 @@ public class PAA implements TimeSeries {
         List<String> labels = new ArrayList<String>(ts.getLabels());
         List<Double> timeReadings = new ArrayList<Double>();
         List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
-        
+
         // Initialize private data.
         this.originalLength = ts.size();
         this.aggPtSize = new int[shrunkSize];
@@ -37,11 +36,8 @@ public class PAA implements TimeSeries {
         // Keep averaging ranges of points into aggregate points until all of
         // the data is averaged.
         while (ptToReadFrom < ts.size()) {
-            ptToReadTo = (int) Math.round(reducedPtSize * (timeReadings.size() + 1)) - 1; // determine
-                                                                                  // end
-                                                                                  // of
-                                                                                  // current
-                                                                                  // range
+            // determine end of current range
+            ptToReadTo = (int) Math.round(reducedPtSize * (timeReadings.size() + 1)) - 1;
             final int ptsToRead = ptToReadTo - ptToReadFrom + 1;
 
             // Keep track of the sum of all the values being averaged to create
@@ -63,22 +59,18 @@ public class PAA implements TimeSeries {
             // ptToReadFrom...ptToReadFrom.
             timeSum = timeSum / ptsToRead;
             for (int dim = 0; dim < ts.numOfDimensions(); dim++)
-                measurementSums[dim] = measurementSums[dim] / ptsToRead; // find
-                                                                         // the
-                                                                         // average
-                                                                         // of
-                                                                         // each
-                                                                         // measurement
+                // find the average of each measurement
+                measurementSums[dim] = measurementSums[dim] / ptsToRead;
 
             // Add the computed average value to the aggregate approximation.
             this.aggPtSize[timeReadings.size()] = ptsToRead;
             timeReadings.add(timeSum);
             points.add(new TimeSeriesPoint(measurementSums));
-           ptToReadFrom = ptToReadTo + 1; // next window of points to average
+            ptToReadFrom = ptToReadTo + 1; // next window of points to average
                                            // startw where the last window ended
-        } // end while loop
+        }
         base = new TimeSeriesBase(labels, timeReadings, points);
-    } 
+    }
 
     private static int validate(TimeSeries ts, int shrunkSize) {
         if (shrunkSize > ts.size())
@@ -94,10 +86,6 @@ public class PAA implements TimeSeries {
         return shrunkSize;
     }
 
-    public int originalSize() {
-        return originalLength;
-    }
-
     public int aggregatePtSize(int ptIndex) {
         return aggPtSize[ptIndex];
     }
@@ -105,7 +93,7 @@ public class PAA implements TimeSeries {
     public String toString() {
         return "(" + this.originalLength + " point time series represented as " + this.size()
                 + " points)\n" + super.toString();
-    } // end toString()
+    }
 
     @Override
     public int size() {
@@ -141,6 +129,5 @@ public class PAA implements TimeSeries {
     public double[] getMeasurementVector(int pointIndex) {
         return base.getMeasurementVector(pointIndex);
     }
-
 
 } // end class PAA
