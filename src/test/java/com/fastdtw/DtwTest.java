@@ -14,7 +14,6 @@ import org.junit.Test;
 import com.fastdtw.dtw.TimeWarpInfo;
 import com.fastdtw.dtw.WarpPath;
 import com.fastdtw.timeseries.TimeSeries;
-import com.fastdtw.timeseries.TimeSeriesBase;
 import com.fastdtw.util.EuclideanDistance;
 
 public class DtwTest {
@@ -23,8 +22,8 @@ public class DtwTest {
 
     @Test
     public void testDistanceBetweenTrace0AndTrace1() {
-        final TimeSeries tsI = TimeSeriesBase.create("src/test/resources/trace0.csv", false, false, ',');
-        final TimeSeries tsJ = TimeSeriesBase.create("src/test/resources/trace1.csv", false, false, ',');
+        final TimeSeries tsI = TestingUtil.load("/trace0.csv");
+        final TimeSeries tsJ = TestingUtil.load("/trace1.csv");
 
         final TimeWarpInfo info = com.fastdtw.dtw.DTW.getWarpInfoBetween(tsI, tsJ,
                 new EuclideanDistance());
