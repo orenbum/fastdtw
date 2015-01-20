@@ -17,7 +17,6 @@ public class PAA implements TimeSeries {
 
     public PAA(TimeSeries ts, int shrunkSize) {
         validate(ts, shrunkSize);
-        List<String> labels = new ArrayList<String>(ts.getLabels());
         List<Double> timeReadings = new ArrayList<Double>();
         List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
 
@@ -69,7 +68,7 @@ public class PAA implements TimeSeries {
             ptToReadFrom = ptToReadTo + 1; // next window of points to average
                                            // startw where the last window ended
         }
-        base = new TimeSeriesBase(labels, timeReadings, points);
+        base = new TimeSeriesBase(timeReadings, points);
     }
 
     private static int validate(TimeSeries ts, int shrunkSize) {
@@ -111,18 +110,8 @@ public class PAA implements TimeSeries {
     }
 
     @Override
-    public List<String> getLabels() {
-        return base.getLabels();
-    }
-
-    @Override
     public double getMeasurement(int pointIndex, int valueIndex) {
         return base.getMeasurement(pointIndex, valueIndex);
-    }
-
-    @Override
-    public double getMeasurement(int pointIndex, String valueLabel) {
-        return base.getMeasurement(pointIndex, valueLabel);
     }
 
     @Override
@@ -130,4 +119,4 @@ public class PAA implements TimeSeries {
         return base.getMeasurementVector(pointIndex);
     }
 
-} 
+}

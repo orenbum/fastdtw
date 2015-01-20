@@ -22,29 +22,14 @@ public class TimeSeriesBase implements TimeSeries {
     private static final char DEFAULT_DELIMITER = ',';
     private static final boolean DEFAULT_IS_LABELED = true;
 
-    private final List<String> labels; // labels for each column
     private final List<Double> timeReadings; // ArrayList of Double
     private final List<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
     private final int numDimensions;
 
-    public TimeSeriesBase(List<String> labels, List<Double> timeReadings, List<TimeSeriesPoint> tsArray) {
-        this.labels = labels;
+    public TimeSeriesBase( List<Double> timeReadings, List<TimeSeriesPoint> tsArray) {
         this.timeReadings = timeReadings;
         this.tsArray = tsArray;
         this.numDimensions = tsArray.get(0).size(); 
-    }
-
-    public TimeSeriesBase(int numOfDimensions) {
-        this(createLabels(numOfDimensions), new ArrayList<Double>(numOfDimensions),
-                new ArrayList<TimeSeriesPoint>(numOfDimensions));
-    }
-
-    private static List<String> createLabels(int numOfDimensions) {
-        List<String> labels = new ArrayList<String>(numOfDimensions + 1);
-        labels.add("Time");
-        for (int x = 0; x < numOfDimensions; x++)
-            labels.add("" + x);
-        return labels;
     }
 
     public static TimeSeries create(String inputFile, boolean isFirstColTime) {
@@ -188,7 +173,7 @@ public class TimeSeriesBase implements TimeSeries {
                     tsArray.add(readings);
                 }
             }
-            return new TimeSeriesBase(labels, timeReadings, tsArray);
+            return new TimeSeriesBase(timeReadings, tsArray);
         } catch (FileNotFoundException e) {
             throw new RuntimeException("ERROR:  The file '" + inputFile + "' was not found.");
         } catch (IOException e) {
@@ -222,23 +207,8 @@ public class TimeSeriesBase implements TimeSeries {
     }
 
     @Override
-    public List<String> getLabels() {
-        return labels;
-    }
-
-    @Override
     public double getMeasurement(int pointIndex, int valueIndex) {
         return ((TimeSeriesPoint) tsArray.get(pointIndex)).get(valueIndex);
-    }
-
-    @Override
-    public double getMeasurement(int pointIndex, String valueLabel) {
-        final int valueIndex = labels.indexOf(valueLabel);
-        if (valueIndex < 0)
-            throw new RuntimeException("ERROR:  the label '" + valueLabel + "' was "
-                    + "not one of:  " + labels);
-
-        return ((TimeSeriesPoint) tsArray.get(pointIndex)).get(valueIndex - 1);
     }
 
     @Override

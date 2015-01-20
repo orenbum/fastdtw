@@ -27,7 +27,6 @@ public class SineWave implements TimeSeries {
     
 
     public SineWave(int length, double cycles, double noise) {
-        List<String> labels = Arrays.asList("Time1");
         List<Double> timeReadings = new ArrayList<Double>();
         List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
         for (int x = 0; x < length; x++) {
@@ -35,9 +34,8 @@ public class SineWave implements TimeSeries {
                     + rand.nextGaussian() * noise;
             timeReadings.add( (double) x);
             points.add(new TimeSeriesPoint(new double[] { nextPoint }));
-//          
         }
-        base = new TimeSeriesBase(labels, timeReadings, points);
+        base = new TimeSeriesBase(timeReadings, points);
     }
 
     @Override
@@ -56,18 +54,8 @@ public class SineWave implements TimeSeries {
     }
 
     @Override
-    public List<String> getLabels() {
-        return base.getLabels();
-    }
-
-    @Override
     public double getMeasurement(int pointIndex, int valueIndex) {
         return base.getMeasurement(pointIndex, valueIndex);
-    }
-
-    @Override
-    public double getMeasurement(int pointIndex, String valueLabel) {
-        return base.getMeasurement(pointIndex, valueLabel);
     }
 
     @Override
