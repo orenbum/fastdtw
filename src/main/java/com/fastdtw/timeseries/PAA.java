@@ -89,6 +89,7 @@ public class PAA implements TimeSeries {
         return aggPtSize[ptIndex];
     }
 
+    @Override
     public String toString() {
         return "(" + this.originalLength + " point time series represented as " + this.size()
                 + " points)\n" + super.toString();
