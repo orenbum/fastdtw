@@ -22,10 +22,9 @@ public class TimeSeriesBase implements TimeSeries {
     private static final char DEFAULT_DELIMITER = ',';
     private static final boolean DEFAULT_IS_LABELED = true;
 
-    public List<String> labels; // labels for each column
-    public List<Double> timeReadings; // ArrayList of Double
-    public List<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
-                                          // no time
+    private List<String> labels; // labels for each column
+    private List<Double> timeReadings; // ArrayList of Double
+    private List<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
 
     public TimeSeriesBase(List<String> labels, List<Double> timeReadings, List<TimeSeriesPoint> tsArray) {
         this.labels = labels;
@@ -210,41 +209,26 @@ public class TimeSeriesBase implements TimeSeries {
         return timeReadings.size();
     }
 
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#numOfDimensions()
-     */
     @Override
     public int numOfDimensions() {
         return labels.size() - 1;
     }
 
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#getTimeAtNthPoint(int)
-     */
     @Override
     public double getTimeAtNthPoint(int n) {
         return ((Double) timeReadings.get(n)).doubleValue();
     }
 
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#getLabels()
-     */
     @Override
     public List<String> getLabels() {
         return labels;
     }
 
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#getMeasurement(int, int)
-     */
     @Override
     public double getMeasurement(int pointIndex, int valueIndex) {
         return ((TimeSeriesPoint) tsArray.get(pointIndex)).get(valueIndex);
     }
 
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#getMeasurement(int, java.lang.String)
-     */
     @Override
     public double getMeasurement(int pointIndex, String valueLabel) {
         final int valueIndex = labels.indexOf(valueLabel);
@@ -255,37 +239,11 @@ public class TimeSeriesBase implements TimeSeries {
         return ((TimeSeriesPoint) tsArray.get(pointIndex)).get(valueIndex - 1);
     }
 
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#getMeasurementVector(int)
-     */
     @Override
     public double[] getMeasurementVector(int pointIndex) {
         return ((TimeSeriesPoint) tsArray.get(pointIndex)).toArray();
     }
 
-//    /* (non-Javadoc)
-//     * @see com.fastdtw.timeseries.TimeSeries#addLast(double, com.fastdtw.timeseries.TimeSeriesPoint)
-//     */
-//    @Override
-//    public void addLast(double time, TimeSeriesPoint values) {
-//        if (labels.size() != values.size() + 1) // labels include a label for
-//                                                // time
-//            throw new RuntimeException("ERROR:  The TimeSeriesPoint: " + values
-//                    + " contains the wrong number of values. " + "expected:  " + labels.size()
-//                    + ", " + "found: " + values.size());
-//
-//        if ((this.size() > 0)
-//                && (time <= ((Double) timeReadings.get(timeReadings.size() - 1)).doubleValue()))
-//            throw new RuntimeException("ERROR:  The point being inserted at the "
-//                    + "end of the time series does not have " + "the correct time sequence. ");
-//
-//        timeReadings.add(new Double(time));
-//        tsArray.add(values);
-//    }
-
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#toString()
-     */
     @Override
     public String toString() {
         final StringBuffer outStr = new StringBuffer();

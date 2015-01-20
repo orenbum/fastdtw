@@ -12,9 +12,12 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.fastdtw.dtw.FastDTW;
 import com.fastdtw.dtw.TimeWarpInfo;
+import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.timeseries.TimeSeriesBase;
 import com.fastdtw.timeseries.TimeSeriesPoint;
 import com.fastdtw.util.DistanceFunction;
@@ -58,25 +61,29 @@ public class DTWQueryTest {
             System.out.println("Dataset size: " + datasetValues.size() + ". Query size: "
                     + queryValues.size());
 
-            final TimeSeriesBase query = new TimeSeriesBase(1);
-            ArrayList<TimeSeriesPoint> queryPoints = new ArrayList<TimeSeriesPoint>(
-                    datasetValues.size());
-            for (double point : queryValues)
-                queryPoints.add(new TimeSeriesPoint(new double[] { point }));
-            query.timeReadings = makeReadings(queryValues.size());
-            query.tsArray = queryPoints;
+            final TimeSeries query;
+            {
+                List<String> labels = Arrays.asList("Time", "Value");
+                List<TimeSeriesPoint> queryPoints = new ArrayList<TimeSeriesPoint>(
+                        datasetValues.size());
+                for (double point : queryValues)
+                    queryPoints.add(new TimeSeriesPoint(new double[] { point }));
+                List<Double> timeReadings = makeReadings(queryValues.size());
+                query = new TimeSeriesBase(labels, timeReadings, queryPoints);
+            }
 
-            for (int i = 0; i < datasetValues.size() - (queryValues.size() - 1); i++) {
-                final TimeSeriesBase dataSet = new TimeSeriesBase(1);
-                ArrayList<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
-                for (double point : datasetValues.subList(i, i + queryValues.size()))
-                    points.add(new TimeSeriesPoint(new double[] { point }));
-                dataSet.timeReadings = makeReadings(queryValues.size());
-                dataSet.tsArray = points;
-
-                final TimeWarpInfo info = FastDTW.getWarpInfoBetween(dataSet, query,
-                        Integer.parseInt(args[2]), distFn);
-                System.out.println("Warp Distance at index " + i + ": " + info.getDistance());
+            {
+                List<String> labels = Arrays.asList("Time", "Value");
+                for (int i = 0; i < datasetValues.size() - (queryValues.size() - 1); i++) {
+                    List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
+                    for (double point : datasetValues.subList(i, i + queryValues.size()))
+                        points.add(new TimeSeriesPoint(new double[] { point }));
+                    List<Double> timeReadings = makeReadings(queryValues.size());
+                    TimeSeries dataSet = new TimeSeriesBase(labels, timeReadings, points);
+                    final TimeWarpInfo info = FastDTW.getWarpInfoBetween(dataSet, query,
+                            Integer.parseInt(args[2]), distFn);
+                    System.out.println("Warp Distance at index " + i + ": " + info.getDistance());
+                }
             }
 
             // System.out.println("Warp Path:     " + info.getPath());
@@ -84,7 +91,7 @@ public class DTWQueryTest {
 
     } // end main()
 
-    public static ArrayList<Double> makeReadings(int count) {
+    public static List<Double> makeReadings(int count) {
         ArrayList<Double> readings = new ArrayList<Double>(count);
         for (int i = 0; i < count; i++)
             readings.add((double) i);
