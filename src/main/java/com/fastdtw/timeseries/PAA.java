@@ -130,4 +130,4 @@ public class PAA implements TimeSeries {
         return base.getMeasurementVector(pointIndex);
     }
 
-} // end class PAA
+} 
