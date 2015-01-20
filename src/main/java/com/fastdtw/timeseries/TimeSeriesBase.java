@@ -22,14 +22,16 @@ public class TimeSeriesBase implements TimeSeries {
     private static final char DEFAULT_DELIMITER = ',';
     private static final boolean DEFAULT_IS_LABELED = true;
 
-    private List<String> labels; // labels for each column
-    private List<Double> timeReadings; // ArrayList of Double
-    private List<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
+    private final List<String> labels; // labels for each column
+    private final List<Double> timeReadings; // ArrayList of Double
+    private final List<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
+    private final int numDimensions;
 
     public TimeSeriesBase(List<String> labels, List<Double> timeReadings, List<TimeSeriesPoint> tsArray) {
         this.labels = labels;
         this.timeReadings = timeReadings;
         this.tsArray = tsArray;
+        this.numDimensions = tsArray.get(0).size(); 
     }
 
     public TimeSeriesBase(int numOfDimensions) {
@@ -211,7 +213,7 @@ public class TimeSeriesBase implements TimeSeries {
 
     @Override
     public int numOfDimensions() {
-        return labels.size() - 1;
+        return numDimensions;
     }
 
     @Override
