@@ -15,9 +15,9 @@ import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.timeseries.TimeSeriesBase;
 import com.fastdtw.timeseries.TimeSeriesPoint;
 
-public final class TestingUtil {
-    
-    public static TimeSeries load(String resourceName) {
+final class TestingUtil {
+
+    static TimeSeries load(String resourceName) {
         InputStream is = FastDtwTest.class.getResourceAsStream(resourceName);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
@@ -45,9 +45,9 @@ public final class TestingUtil {
             }
         }
     }
-    
+
     static void assertDifferenceIsOk(final TimeWarpInfo info) {
-        final double PRECISION=0.00000001;
+        final double PRECISION = 0.00000001;
         assertEquals(9.139400704860002, info.getDistance(), PRECISION);
         // [(0,0),(0,1),(1,2),(2,3),...,(272,272),(273,272),(274,273),(274,274)]
         WarpPath p = info.getPath();
