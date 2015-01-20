@@ -13,6 +13,7 @@ Improvements sought for this massaging of the original project are
 * add maven site plugins
 * add generic types
 * remove unused methods, classes
+* improve encapsulation
 * remove Abstract and Band DTW techniques (because FastDTW is better)
 * close resources properly
 * add junit tests (the project had no automated unit tests)
