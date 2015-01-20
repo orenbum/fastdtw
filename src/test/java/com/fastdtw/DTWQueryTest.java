@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import com.fastdtw.dtw.FastDTW;
 import com.fastdtw.dtw.TimeWarpInfo;
-import com.fastdtw.timeseries.TimeSeries;
+import com.fastdtw.timeseries.TimeSeriesBase;
 import com.fastdtw.timeseries.TimeSeriesPoint;
 import com.fastdtw.util.DistanceFunction;
 import com.fastdtw.util.DistanceFunctionFactory;
@@ -58,7 +58,7 @@ public class DTWQueryTest {
             System.out.println("Dataset size: " + datasetValues.size() + ". Query size: "
                     + queryValues.size());
 
-            final TimeSeries query = new TimeSeries(1);
+            final TimeSeriesBase query = new TimeSeriesBase(1);
             ArrayList<TimeSeriesPoint> queryPoints = new ArrayList<TimeSeriesPoint>(
                     datasetValues.size());
             for (double point : queryValues)
@@ -67,7 +67,7 @@ public class DTWQueryTest {
             query.tsArray = queryPoints;
 
             for (int i = 0; i < datasetValues.size() - (queryValues.size() - 1); i++) {
-                final TimeSeries dataSet = new TimeSeries(1);
+                final TimeSeriesBase dataSet = new TimeSeriesBase(1);
                 ArrayList<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
                 for (double point : datasetValues.subList(i, i + queryValues.size()))
                     points.add(new TimeSeriesPoint(new double[] { point }));

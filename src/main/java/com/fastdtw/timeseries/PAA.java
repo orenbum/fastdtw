@@ -7,99 +7,147 @@
 
 package com.fastdtw.timeseries;
 
+import java.util.List;
 
-public class PAA extends TimeSeries
-{
-   // PRIVATE DATA
-   private int[] aggPtSize;  // ArrayList of Integer
-   private final int originalLength;
+public class PAA implements TimeSeries {
+    // PRIVATE DATA
+    private int[] aggPtSize; // ArrayList of Integer
+    private final int originalLength;
+    private final TimeSeries base;
 
+    public PAA(TimeSeries ts, int shrunkSize) {
+        base = new TimeSeriesBase(validate(ts, shrunkSize));
 
+        // Initialize private data.
+        this.originalLength = ts.size();
+        this.aggPtSize = new int[shrunkSize];
 
+        // Initialize the new aggregate time series.
+        this.setLabels(ts.getLabels());
 
-   public PAA(TimeSeries ts, int shrunkSize)
-   {
-       super(validate(ts,shrunkSize));
-      
-      // Initialize private data.
-      this.originalLength = ts.size();
-      this.aggPtSize = new int[shrunkSize];
+        // Determine the size of each sampled point. (may be a fraction)
+        final double reducedPtSize = (double) ts.size() / (double) shrunkSize;
 
-      // Initialize the new aggregate time series.
-      this.setLabels(ts.getLabels());
+        // Variables that keep track of the range of points being averaged into
+        // a single point.
+        int ptToReadFrom = 0;
+        int ptToReadTo;
 
-      // Determine the size of each sampled point. (may be a fraction)
-      final double reducedPtSize = (double)ts.size()/(double)shrunkSize;
+        // Keep averaging ranges of points into aggregate points until all of
+        // the data is averaged.
+        while (ptToReadFrom < ts.size()) {
+            ptToReadTo = (int) Math.round(reducedPtSize * (this.size() + 1)) - 1; // determine
+                                                                                  // end
+                                                                                  // of
+                                                                                  // current
+                                                                                  // range
+            final int ptsToRead = ptToReadTo - ptToReadFrom + 1;
 
-      // Variables that keep track of the range of points being averaged into a single point.
-      int ptToReadFrom = 0;
-      int ptToReadTo;
+            // Keep track of the sum of all the values being averaged to create
+            // a single point.
+            double timeSum = 0.0;
+            final double[] measurementSums = new double[ts.numOfDimensions()];
 
+            // Sum all of the values over the range ptToReadFrom...ptToReadFrom.
+            for (int pt = ptToReadFrom; pt <= ptToReadTo; pt++) {
+                final double[] currentPoint = ts.getMeasurementVector(pt);
 
-      // Keep averaging ranges of points into aggregate points until all of the data is averaged.
-      while (ptToReadFrom < ts.size())
-      {
-         ptToReadTo = (int)Math.round(reducedPtSize*(this.size()+1))-1;   // determine end of current range
-         final int ptsToRead = ptToReadTo-ptToReadFrom+1;
+                timeSum += ts.getTimeAtNthPoint(pt);
 
-         // Keep track of the sum of all the values being averaged to create a single point.
-         double timeSum = 0.0;
-         final double[] measurementSums = new double[ts.numOfDimensions()];
+                for (int dim = 0; dim < ts.numOfDimensions(); dim++)
+                    measurementSums[dim] += currentPoint[dim];
+            } // end for loop
 
-         // Sum all of the values over the range ptToReadFrom...ptToReadFrom.
-         for (int pt=ptToReadFrom; pt<=ptToReadTo; pt++)
-         {
-            final double[] currentPoint = ts.getMeasurementVector(pt);
+            // Determine the average value over the range
+            // ptToReadFrom...ptToReadFrom.
+            timeSum = timeSum / ptsToRead;
+            for (int dim = 0; dim < ts.numOfDimensions(); dim++)
+                measurementSums[dim] = measurementSums[dim] / ptsToRead; // find
+                                                                         // the
+                                                                         // average
+                                                                         // of
+                                                                         // each
+                                                                         // measurement
 
-            timeSum += ts.getTimeAtNthPoint(pt);
+            // Add the computed average value to the aggregate approximation.
+            this.aggPtSize[base.size()] = ptsToRead;
+            base.addLast(timeSum, new TimeSeriesPoint(measurementSums));
 
-            for (int dim=0; dim<ts.numOfDimensions(); dim++)
-               measurementSums[dim] += currentPoint[dim];
-         }  // end for loop
+           ptToReadFrom = ptToReadTo + 1; // next window of points to average
+                                           // startw where the last window ended
+        } // end while loop
+    } // end Constructor
 
-         // Determine the average value over the range ptToReadFrom...ptToReadFrom.
-         timeSum = timeSum / ptsToRead;
-         for (int dim=0; dim<ts.numOfDimensions(); dim++)
-               measurementSums[dim] = measurementSums[dim] / ptsToRead;   // find the average of each measurement
-
-         // Add the computed average value to the aggregate approximation.
-         this.aggPtSize[super.size()] = ptsToRead;
-         this.addLast(timeSum, new TimeSeriesPoint(measurementSums));
-
-         ptToReadFrom = ptToReadTo + 1;    // next window of points to average startw where the last window ended
-      }  // end while loop
-   }  // end Constructor
-
-
-   private static int validate(TimeSeries ts, int shrunkSize) {
-       if (shrunkSize > ts.size())
-           throw new RuntimeException("ERROR:  The size of an aggregate representation may not be largerr than the \n" +
-                                   "original time series (shrunkSize=" + shrunkSize + " , origSize=" + ts.size() + ").");
+    private static int validate(TimeSeries ts, int shrunkSize) {
+        if (shrunkSize > ts.size())
+            throw new RuntimeException(
+                    "ERROR:  The size of an aggregate representation may not be largerr than the \n"
+                            + "original time series (shrunkSize=" + shrunkSize + " , origSize="
+                            + ts.size() + ").");
 
         if (shrunkSize <= 0)
-           throw new RuntimeException("ERROR:  The size of an aggregate representation must be greater than zero and \n" +
-                                   "no larger than the original time series.");
+            throw new RuntimeException(
+                    "ERROR:  The size of an aggregate representation must be greater than zero and \n"
+                            + "no larger than the original time series.");
         return shrunkSize;
-}
+    }
 
+    public int originalSize() {
+        return originalLength;
+    }
 
-public int originalSize()
-   {
-      return originalLength;
-   }
+    public int aggregatePtSize(int ptIndex) {
+        return aggPtSize[ptIndex];
+    }
 
+    public String toString() {
+        return "(" + this.originalLength + " point time series represented as " + this.size()
+                + " points)\n" + super.toString();
+    } // end toString()
 
-   public int aggregatePtSize(int ptIndex)
-   {
-      return aggPtSize[ptIndex];
-   }
+    @Override
+    public int size() {
+        return base.size();
+    }
 
+    @Override
+    public int numOfDimensions() {
+        return base.numOfDimensions();
+    }
 
-   public String toString()
-   {
-      return "(" + this.originalLength + " point time series represented as " + this.size() + " points)\n" +
-             super.toString();
-   }  // end toString()
+    @Override
+    public double getTimeAtNthPoint(int n) {
+        return base.getTimeAtNthPoint(n);
+    }
 
+    @Override
+    public List<String> getLabels() {
+        return base.getLabels();
+    }
 
-}  // end class PAA
+    @Override
+    public void setLabels(List<String> newLabels) {
+        base.setLabels(newLabels);
+    }
+
+    @Override
+    public double getMeasurement(int pointIndex, int valueIndex) {
+        return getMeasurement(pointIndex, valueIndex);
+    }
+
+    @Override
+    public double getMeasurement(int pointIndex, String valueLabel) {
+        return base.getMeasurement(pointIndex, valueLabel);
+    }
+
+    @Override
+    public double[] getMeasurementVector(int pointIndex) {
+        return base.getMeasurementVector(pointIndex);
+    }
+
+    @Override
+    public void addLast(double time, TimeSeriesPoint values) {
+        base.addLast(time, values);
+    }
+
+} // end class PAA

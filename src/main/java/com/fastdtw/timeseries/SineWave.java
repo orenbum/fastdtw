@@ -18,7 +18,7 @@ import java.util.Random;
  * @since Jun 30, 2004
  */
 
-public class SineWave extends TimeSeries {
+public class SineWave extends TimeSeriesBase {
     final private static Random rand = new Random();
 
     public SineWave(int length, double cycles, double noise) {
