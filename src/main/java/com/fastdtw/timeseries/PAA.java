@@ -128,13 +128,8 @@ public class PAA implements TimeSeries {
     }
 
     @Override
-    public void setLabels(List<String> newLabels) {
-        base.setLabels(newLabels);
-    }
-
-    @Override
     public double getMeasurement(int pointIndex, int valueIndex) {
-        return getMeasurement(pointIndex, valueIndex);
+        return base.getMeasurement(pointIndex, valueIndex);
     }
 
     @Override
@@ -147,9 +142,5 @@ public class PAA implements TimeSeries {
         return base.getMeasurementVector(pointIndex);
     }
 
-    @Override
-    public void addLast(double time, TimeSeriesPoint values) {
-        base.addLast(time, values);
-    }
 
 } // end class PAA

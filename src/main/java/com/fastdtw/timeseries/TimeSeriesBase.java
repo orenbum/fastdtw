@@ -235,16 +235,6 @@ public class TimeSeriesBase implements TimeSeries {
     }
 
     /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#setLabels(java.util.List)
-     */
-    @Override
-    public void setLabels(List<String> newLabels) {
-        labels.clear();
-        for (int x = 0; x < newLabels.size(); x++)
-            labels.add(newLabels.get(x));
-    }
-
-    /* (non-Javadoc)
      * @see com.fastdtw.timeseries.TimeSeries#getMeasurement(int, int)
      */
     @Override
@@ -273,25 +263,25 @@ public class TimeSeriesBase implements TimeSeries {
         return ((TimeSeriesPoint) tsArray.get(pointIndex)).toArray();
     }
 
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#addLast(double, com.fastdtw.timeseries.TimeSeriesPoint)
-     */
-    @Override
-    public void addLast(double time, TimeSeriesPoint values) {
-        if (labels.size() != values.size() + 1) // labels include a label for
-                                                // time
-            throw new RuntimeException("ERROR:  The TimeSeriesPoint: " + values
-                    + " contains the wrong number of values. " + "expected:  " + labels.size()
-                    + ", " + "found: " + values.size());
-
-        if ((this.size() > 0)
-                && (time <= ((Double) timeReadings.get(timeReadings.size() - 1)).doubleValue()))
-            throw new RuntimeException("ERROR:  The point being inserted at the "
-                    + "end of the time series does not have " + "the correct time sequence. ");
-
-        timeReadings.add(new Double(time));
-        tsArray.add(values);
-    }
+//    /* (non-Javadoc)
+//     * @see com.fastdtw.timeseries.TimeSeries#addLast(double, com.fastdtw.timeseries.TimeSeriesPoint)
+//     */
+//    @Override
+//    public void addLast(double time, TimeSeriesPoint values) {
+//        if (labels.size() != values.size() + 1) // labels include a label for
+//                                                // time
+//            throw new RuntimeException("ERROR:  The TimeSeriesPoint: " + values
+//                    + " contains the wrong number of values. " + "expected:  " + labels.size()
+//                    + ", " + "found: " + values.size());
+//
+//        if ((this.size() > 0)
+//                && (time <= ((Double) timeReadings.get(timeReadings.size() - 1)).doubleValue()))
+//            throw new RuntimeException("ERROR:  The point being inserted at the "
+//                    + "end of the time series does not have " + "the correct time sequence. ");
+//
+//        timeReadings.add(new Double(time));
+//        tsArray.add(values);
+//    }
 
     /* (non-Javadoc)
      * @see com.fastdtw.timeseries.TimeSeries#toString()
