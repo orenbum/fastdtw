@@ -3,7 +3,9 @@ fastdtw
 <a href="https://travis-ci.org/davidmoten/fastdtw"><img src="https://travis-ci.org/davidmoten/fastdtw.svg"/></a><br/>
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/fastdtw/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/fastdtw)
 
-Based on Stan Salvador and Philip Chan's "FastDTW" dynamic time warping [implementation](https://code.google.com/p/fastdtw/).
+An enhancement of Stan Salvador and Philip Chan's "FastDTW" dynamic time warping [implementation](https://code.google.com/p/fastdtw/).
+
+Status: *pre-alpha*
 
 Improvements sought for this massaging of the original project are
 
