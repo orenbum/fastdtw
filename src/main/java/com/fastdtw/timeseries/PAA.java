@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PAA implements TimeSeries {
-    private int[] aggPtSize;
+    private final int[] aggPtSize;
     private final int originalLength;
     private final TimeSeries base;
 

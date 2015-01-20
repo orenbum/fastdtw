@@ -188,9 +188,6 @@ public class TimeSeriesBase implements TimeSeries {
         }
     }
 
-    /* (non-Javadoc)
-     * @see com.fastdtw.timeseries.TimeSeries#size()
-     */
     @Override
     public int size() {
         return timeReadings.size();
@@ -219,11 +216,6 @@ public class TimeSeriesBase implements TimeSeries {
     @Override
     public String toString() {
         final StringBuffer outStr = new StringBuffer();
-        /*
-         * Write labels for (int x=0; x<labels.size(); x++) {
-         * outStr.append(labels.get(x)); if (x < labels.size()-1)
-         * outStr.append(","); else outStr.append("\n"); } // end for loop
-         */
         // Write the data for each row.
         for (int r = 0; r < timeReadings.size(); r++) {
             // Time
