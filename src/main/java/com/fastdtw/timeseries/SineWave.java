@@ -16,10 +16,8 @@ import java.util.Random;
  *
  * @author Stan Salvador, stansalvador@hotmail.com
  * @version last changed: Jun 30, 2004
- * @see
  * @since Jun 30, 2004
  */
-
 public class SineWave implements TimeSeries {
     private static final Random rand = new Random();
     private final TimeSeries base;

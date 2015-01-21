@@ -13,10 +13,8 @@ import com.fastdtw.dtw.WarpPath;
  *
  * @author Stan Salvador, stansalvador@hotmail.com
  * @version last changed: Jun 30, 2004
- * @see
  * @since Jun 30, 2004
  */
-
 public final class WarpPathWindow extends SearchWindow {
 
     public WarpPathWindow(WarpPath path, int searchRadius) {
