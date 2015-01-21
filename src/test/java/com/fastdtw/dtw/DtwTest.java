@@ -19,7 +19,7 @@ public class DtwTest {
         final TimeSeries tsI = TestingUtil.load("/trace0.csv");
         final TimeSeries tsJ = TestingUtil.load("/trace1.csv");
 
-        final TimeWarpInfo info = DTW.getWarpInfoBetween(tsI, tsJ, Distances.EUCLIDEAN_DISTANCE);
+        final TimeWarpInfo info = DTW.compare(tsI, tsJ, Distances.EUCLIDEAN_DISTANCE);
         TestingUtil.assertDifferenceIsOk(info);
     }
 

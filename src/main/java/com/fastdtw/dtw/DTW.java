@@ -38,14 +38,14 @@ public final class DTW
 
    // Dynamic Time Warping where the warp path is not needed, an alternate implementation can be used that does not
    //    require the entire cost matrix to be filled and only needs 2 columns to be stored at any one time.
-   public static double getWarpDistBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
+   public static double distanceBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
    {
       // The space complexity is 2*tsJ.size().  Dynamic time warping is symmetric so switching the two time series
       //    parameters does not effect the final warp cost but can reduce the space complexity by allowing tsJ to
       //    be set as the shorter time series and only requiring 2 columns of size |tsJ| rather than 2 larger columns of
       //    size |tsI|.
       if (tsI.size() < tsJ.size())
-         return getWarpDistBetween(tsJ, tsI, distFn);
+         return distanceBetween(tsJ, tsI, distFn);
 
 
       double[] lastCol = new double[tsJ.size()];
@@ -82,7 +82,7 @@ public final class DTW
    }  // end getWarpDistBetween(..)
 
 
-   public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
+   public static TimeWarpInfo compare(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
    {
       return dynamicTimeWarp(tsI, tsJ, distFn);
    }
@@ -191,7 +191,7 @@ public final class DTW
 
 
 
-   public static double getWarpDistBetween(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn)
+   public static double distanceBetween(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn)
    {
       //     COST MATRIX:
       //   5|_|_|_|_|_|_|E| E = min Global Cost
@@ -245,7 +245,7 @@ public final class DTW
    }  // end getWarpDistBetween(...)
 
    
-   public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn)
+   public static TimeWarpInfo compare(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn)
    {
       return constrainedTimeWarp(tsI, tsJ, window, distFn);
    }

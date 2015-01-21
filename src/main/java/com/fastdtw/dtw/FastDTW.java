@@ -14,16 +14,15 @@ import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.DistanceFunction;
 
 public final class FastDTW {
-    // CONSTANTS
+
     public final static int DEFAULT_SEARCH_RADIUS = 1;
 
-    public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, int searchRadius,
+    public static TimeWarpInfo compare(TimeSeries tsI, TimeSeries tsJ, int searchRadius,
             DistanceFunction distFn) {
         return fastDTW(tsI, tsJ, searchRadius, distFn);
     }
 
-    public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ,
-            DistanceFunction distFn) {
+    public static TimeWarpInfo compare(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn) {
         return fastDTW(tsI, tsJ, DEFAULT_SEARCH_RADIUS, distFn);
     }
 
@@ -36,7 +35,7 @@ public final class FastDTW {
 
         if ((tsI.size() <= minTSsize) || (tsJ.size() <= minTSsize)) {
             // Perform full Dynamic Time Warping.
-            return DTW.getWarpInfoBetween(tsI, tsJ, distFn);
+            return DTW.compare(tsI, tsJ, distFn);
         } else {
             final double resolutionFactor = 2.0;
 
@@ -48,11 +47,10 @@ public final class FastDTW {
             // the warp path found at the previous resolution (smaller time
             // series).
             final SearchWindow window = new ExpandedResWindow(tsI, tsJ, shrunkI, shrunkJ, FastDTW
-                    .getWarpInfoBetween(shrunkI, shrunkJ, searchRadius, distFn).getPath(),
-                    searchRadius);
+                    .compare(shrunkI, shrunkJ, searchRadius, distFn).getPath(), searchRadius);
 
             // Find the optimal warp path through this search window constraint.
-            return DTW.getWarpInfoBetween(tsI, tsJ, window, distFn);
+            return DTW.compare(tsI, tsJ, window, distFn);
         }
     }
 

@@ -19,7 +19,7 @@ public class FastDtwTest {
         final TimeSeries ts1 = TestingUtil.load("/trace0.csv");
         final TimeSeries ts2 = TestingUtil.load("/trace1.csv");
 
-        final TimeWarpInfo info = FastDTW.getWarpInfoBetween(ts1, ts2, 10,
+        final TimeWarpInfo info = FastDTW.compare(ts1, ts2, 10,
                 Distances.EUCLIDEAN_DISTANCE);
         TestingUtil.assertDifferenceIsOk(info);
     }

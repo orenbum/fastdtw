@@ -46,7 +46,7 @@ Then calculate the distance:
 import com.fastdtw.dtw.FastDTW;
 import com.fastdtw.util.Distances;
 
-double distance = FastDTW.getWarpInfoBetween(ts1, ts2, 10, Distances.EUCLIDEAN_DISTANCE))
+double distance = FastDTW.compare(ts1, ts2, 10, Distances.EUCLIDEAN_DISTANCE))
                          .getDistance();
 ```
 

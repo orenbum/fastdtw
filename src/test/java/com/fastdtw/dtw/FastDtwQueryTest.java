@@ -83,7 +83,7 @@ public class FastDtwQueryTest {
                         timeReading += 1.0;
                     }
                     TimeSeries dataSet = new TimeSeriesBase(items);
-                    final TimeWarpInfo info = FastDTW.getWarpInfoBetween(dataSet, query,
+                    final TimeWarpInfo info = FastDTW.compare(dataSet, query,
                             Integer.parseInt(args[2]), distFn);
                     System.out.println("Warp Distance at index " + i + ": " + info.getDistance());
                 }

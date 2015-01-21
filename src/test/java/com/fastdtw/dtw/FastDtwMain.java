@@ -10,6 +10,6 @@ public class FastDtwMain {
         final TimeSeries tsJ = TestingUtil.load("/trace1.csv");
 
         while (true)
-            com.fastdtw.dtw.FastDTW.getWarpInfoBetween(tsI, tsJ, 10, new EuclideanDistance());
+            com.fastdtw.dtw.FastDTW.compare(tsI, tsJ, 10, new EuclideanDistance());
     }
 }
