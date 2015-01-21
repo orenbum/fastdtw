@@ -9,7 +9,7 @@ package com.fastdtw.dtw.matrix;
 
 import com.fastdtw.dtw.window.SearchWindow;
 
-public class MemoryResidentMatrix implements CostMatrix {
+public final class MemoryResidentMatrix implements CostMatrix {
     private static final double OUT_OF_WINDOW_VALUE = Double.POSITIVE_INFINITY;
     private final SearchWindow window;
     private final double[] cellValues;
@@ -28,6 +28,7 @@ public class MemoryResidentMatrix implements CostMatrix {
         }
     }
 
+    @Override
     public void put(int col, int row, double value) {
         if ((row < window.minJforI(col)) || (row > window.maxJforI(col))) {
             throw new RuntimeException("CostMatrix is filled in a cell (col=" + col + ", row="
@@ -36,6 +37,7 @@ public class MemoryResidentMatrix implements CostMatrix {
             cellValues[colOffsets[col] + row - window.minJforI(col)] = value;
     }
 
+    @Override
     public double get(int col, int row) {
         if ((row < window.minJforI(col)) || (row > window.maxJforI(col)))
             return OUT_OF_WINDOW_VALUE;
@@ -43,6 +45,7 @@ public class MemoryResidentMatrix implements CostMatrix {
             return cellValues[colOffsets[col] + row - window.minJforI(col)];
     }
 
+    @Override
     public int size() {
         return cellValues.length;
     }

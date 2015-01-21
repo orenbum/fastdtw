@@ -9,7 +9,7 @@ package com.fastdtw.dtw.matrix;
 
 import com.fastdtw.dtw.window.SearchWindow;
 
-public class PartialWindowMatrix implements CostMatrix {
+public final class PartialWindowMatrix implements CostMatrix {
 
     private static final double OUT_OF_WINDOW_VALUE = Double.POSITIVE_INFINITY;
     private double[] lastCol;
@@ -33,6 +33,7 @@ public class PartialWindowMatrix implements CostMatrix {
         lastCol = new double[window.maxJforI(0) - window.minJforI(0) + 1];
     }
 
+    @Override
     public void put(int col, int row, double value) {
         if ((row < window.minJforI(col)) || (row > window.maxJforI(col))) {
             throw new RuntimeException("CostMatrix is filled in a cell (col=" + col + ", row="
@@ -56,6 +57,7 @@ public class PartialWindowMatrix implements CostMatrix {
         }
     }
 
+    @Override
     public double get(int col, int row) {
         if ((row < window.minJforI(col)) || (row > window.maxJforI(col)))
             return OUT_OF_WINDOW_VALUE;
@@ -69,6 +71,7 @@ public class PartialWindowMatrix implements CostMatrix {
         }
     }
 
+    @Override
     public int size() {
         return lastCol.length + currCol.length;
     }

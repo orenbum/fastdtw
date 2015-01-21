@@ -7,7 +7,8 @@
 
 package com.fastdtw.matrix;
 
-public class ColMajorCell {
+public final class ColMajorCell {
+    
     private final int col;
     private final int row;
 

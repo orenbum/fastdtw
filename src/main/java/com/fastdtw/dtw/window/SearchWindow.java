@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 
 import com.fastdtw.matrix.ColMajorCell;
 
-abstract public class SearchWindow {
+public abstract class SearchWindow {
     private final int[] minValues;
     private final int[] maxValues;
     private final int maxJ;

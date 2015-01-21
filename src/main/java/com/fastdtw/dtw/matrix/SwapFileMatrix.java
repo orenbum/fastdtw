@@ -16,7 +16,7 @@ import java.util.Random;
 import com.fastdtw.dtw.window.SearchWindow;
 import com.fastdtw.lang.TypeConversions;
 
-class SwapFileMatrix implements CostMatrix {
+final class SwapFileMatrix implements CostMatrix {
     private static final double OUT_OF_WINDOW_VALUE = Double.POSITIVE_INFINITY;
     private static final Random RAND_GEN = new Random();
     private final SearchWindow window;
@@ -62,6 +62,7 @@ class SwapFileMatrix implements CostMatrix {
         }
     }
 
+    @Override
     public void put(int col, int row, double value) {
         if ((row < window.minJforI(col)) || (row > window.maxJforI(col))) {
             throw new RuntimeException("CostMatrix is filled in a cell (col=" + col + ", row="
@@ -105,6 +106,7 @@ class SwapFileMatrix implements CostMatrix {
         }
     }
 
+    @Override
     public double get(int col, int row) {
         if ((row < window.minJforI(col)) || (row > window.maxJforI(col)))
             return OUT_OF_WINDOW_VALUE;
@@ -139,6 +141,7 @@ class SwapFileMatrix implements CostMatrix {
     // application is still running.
     // This method must be called explicitly to guarantee that the swap file is
     // deleted.
+    @Override
     protected void finalize() throws Throwable {
         // Close and Delete the (possibly VERY large) swap file.
         try {
@@ -154,6 +157,7 @@ class SwapFileMatrix implements CostMatrix {
         }
     }
 
+    @Override
     public int size() {
         return window.size();
     }

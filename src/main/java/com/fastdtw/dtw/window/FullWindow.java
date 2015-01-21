@@ -9,7 +9,7 @@ package com.fastdtw.dtw.window;
 
 import com.fastdtw.timeseries.TimeSeries;
 
-public class FullWindow extends SearchWindow {
+public final class FullWindow extends SearchWindow {
 
     public FullWindow(TimeSeries tsI, TimeSeries tsJ) {
         super(tsI.size(), tsJ.size());

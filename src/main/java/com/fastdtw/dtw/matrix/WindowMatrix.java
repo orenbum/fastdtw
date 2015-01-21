@@ -9,7 +9,7 @@ package com.fastdtw.dtw.matrix;
 
 import com.fastdtw.dtw.window.SearchWindow;
 
-public class WindowMatrix implements CostMatrix {
+public final class WindowMatrix implements CostMatrix {
     private CostMatrix windowCells;
 
     public WindowMatrix(SearchWindow searchWindow) {
@@ -24,14 +24,17 @@ public class WindowMatrix implements CostMatrix {
         }
     }
 
+    @Override
     public void put(int col, int row, double value) {
         windowCells.put(col, row, value);
     }
 
+    @Override
     public double get(int col, int row) {
         return windowCells.get(col, row);
     }
 
+    @Override
     public int size() {
         return windowCells.size();
     }

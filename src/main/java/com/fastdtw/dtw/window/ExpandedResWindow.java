@@ -13,7 +13,7 @@ import com.fastdtw.timeseries.PAA;
 import com.fastdtw.timeseries.TimeSeries;
 
 
-public class ExpandedResWindow extends SearchWindow
+public final class ExpandedResWindow extends SearchWindow
 {
 
    public ExpandedResWindow(TimeSeries tsI, TimeSeries tsJ, PAA shrunkI, PAA shrunkJ,
@@ -60,7 +60,7 @@ public class ExpandedResWindow extends SearchWindow
          {
             super.markVisited(currentI-1, currentJ);
             super.markVisited(currentI, currentJ-1);
-         }  // end if
+         }  
 
          // Fill in the cells that are created by a projection from the cell in the low-resolution warp path to a
          //    higher resolution.
@@ -68,21 +68,21 @@ public class ExpandedResWindow extends SearchWindow
          {
             super.markVisited(currentI+x, currentJ);
             super.markVisited(currentI+x, currentJ+blockJSize-1);
-         }  // end for loop
+         }  
 
          // Record the last position in the warp path so the direction of the path can be determined when the next
          //    position of the path is evaluated.
          lastWarpedI = warpedI;
          lastWarpedJ = warpedJ;
-      }  // end for loop
+      }  
 
 
       // Expand the size of the projected warp path by the specified width.
       super.expandWindow(searchRadius);
-   }  // end Constructor
+   } 
 
 
-}  // end class ExpandedResWindow
+}  
 
 
 
