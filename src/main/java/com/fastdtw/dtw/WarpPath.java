@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 import com.fastdtw.matrix.ColMajorCell;
 
-public class WarpPath {
+public final class WarpPath {
 
     private final List<Integer> tsIindexes;
     private final List<Integer> tsJindexes;
@@ -36,39 +36,40 @@ public class WarpPath {
     }
 
     public int minI() {
-        return ((Integer) tsIindexes.get(0)).intValue();
+        return tsIindexes.get(0).intValue();
     }
 
     public int minJ() {
-        return ((Integer) tsJindexes.get(0)).intValue();
+        return tsJindexes.get(0).intValue();
     }
 
     public int maxI() {
-        return ((Integer) tsIindexes.get(tsIindexes.size() - 1)).intValue();
+        return tsIindexes.get(tsIindexes.size() - 1).intValue();
     }
 
     public int maxJ() {
-        return ((Integer) tsJindexes.get(tsJindexes.size() - 1)).intValue();
+        return tsJindexes.get(tsJindexes.size() - 1).intValue();
     }
 
     public void addFirst(int i, int j) {
-        tsIindexes.add(0, new Integer(i));
-        tsJindexes.add(0, new Integer(j));
+        tsIindexes.add(0, i);
+        tsJindexes.add(0, j);
     }
 
     public void addLast(int i, int j) {
-        tsIindexes.add(new Integer(i));
-        tsJindexes.add(new Integer(j));
+        tsIindexes.add(i);
+        tsJindexes.add(j);
     }
 
     public ColMajorCell get(int index) {
         if ((index > this.size()) || (index < 0))
             throw new NoSuchElementException();
         else
-            return new ColMajorCell(((Integer) tsIindexes.get(index)).intValue(),
-                    ((Integer) tsJindexes.get(index)).intValue());
+            return new ColMajorCell(tsIindexes.get(index).intValue(),
+                    tsJindexes.get(index).intValue());
     }
 
+    @Override
     public String toString() {
         StringBuffer outStr = new StringBuffer("[");
         for (int x = 0; x < tsIindexes.size(); x++) {
@@ -80,6 +81,7 @@ public class WarpPath {
         return new String(outStr.append("]"));
     } // end toString()
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == null)
             return false;
@@ -98,6 +100,7 @@ public class WarpPath {
             return false;
     }
 
+    @Override
     public int hashCode() {
         return tsIindexes.hashCode() * tsJindexes.hashCode();
     }

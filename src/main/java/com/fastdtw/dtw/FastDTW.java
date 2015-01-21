@@ -13,7 +13,7 @@ import com.fastdtw.timeseries.PAA;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.DistanceFunction;
 
-public class FastDTW {
+public final class FastDTW {
     // CONSTANTS
     public final static int DEFAULT_SEARCH_RADIUS = 1;
 

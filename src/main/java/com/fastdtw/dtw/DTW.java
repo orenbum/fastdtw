@@ -18,7 +18,7 @@ import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.DistanceFunction;
 
 
-public class DTW
+public final class DTW
 {
 
    public static double calcWarpCost(WarpPath path, TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
