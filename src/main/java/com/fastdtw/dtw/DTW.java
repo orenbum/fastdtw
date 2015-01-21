@@ -84,17 +84,17 @@ public class DTW
 
    public static WarpPath getWarpPathBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
    {
-      return DynamicTimeWarp(tsI, tsJ, distFn).getPath();
+      return dynamicTimeWarp(tsI, tsJ, distFn).getPath();
    }
 
 
    public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
    {
-      return DynamicTimeWarp(tsI, tsJ, distFn);
+      return dynamicTimeWarp(tsI, tsJ, distFn);
    }
 
 
-   private static TimeWarpInfo DynamicTimeWarp(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
+   private static TimeWarpInfo dynamicTimeWarp(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
    {
       //     COST MATRIX:
       //   5|_|_|_|_|_|_|E| E = min Global Cost

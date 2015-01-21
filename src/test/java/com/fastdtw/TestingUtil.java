@@ -13,6 +13,7 @@ import com.fastdtw.dtw.TimeWarpInfo;
 import com.fastdtw.dtw.WarpPath;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.timeseries.TimeSeriesBase;
+import com.fastdtw.timeseries.TimeSeriesItem;
 import com.fastdtw.timeseries.TimeSeriesPoint;
 
 final class TestingUtil {
@@ -21,18 +22,18 @@ final class TestingUtil {
         InputStream is = FastDtwTest.class.getResourceAsStream(resourceName);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
-        List<Double> timeReadings = new ArrayList<Double>();
-        List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
+        List<TimeSeriesItem> items= new ArrayList<TimeSeriesItem>();
         try {
+            int count = 0;
             while ((line = br.readLine()) != null) {
                 if (line.trim().length() > 0) {
-                    double x = Double.parseDouble(line);
+                    double x = Double.parseDouble(line.trim());
                     TimeSeriesPoint point = new TimeSeriesPoint(new double[] { x });
-                    timeReadings.add(x);
-                    points.add(point);
+                    items.add(new TimeSeriesItem(count, point));
+                    count+=1;
                 }
             }
-            return new TimeSeriesBase(timeReadings, points);
+            return new TimeSeriesBase(items);
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

@@ -25,15 +25,13 @@ public class SineWave implements TimeSeries {
     private final TimeSeries base;
 
     public SineWave(int length, double cycles, double noise) {
-        List<Double> timeReadings = new ArrayList<Double>();
-        List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
-        for (int x = 0; x < length; x++) {
-            final double nextPoint = Math.sin((double) x / length * 2.0 * Math.PI * cycles)
+        List<TimeSeriesItem> items= new ArrayList<TimeSeriesItem>();
+        for (int i = 0; i < length; i++) {
+            final double nextPoint = Math.sin((double) i / length * 2.0 * Math.PI * cycles)
                     + rand.nextGaussian() * noise;
-            timeReadings.add((double) x);
-            points.add(new TimeSeriesPoint(new double[] { nextPoint }));
+            items.add(new TimeSeriesItem(i, new TimeSeriesPoint(new double[] { nextPoint })));
         }
-        base = new TimeSeriesBase(timeReadings, points);
+        base = new TimeSeriesBase(items);
     }
 
     @Override

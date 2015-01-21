@@ -15,8 +15,6 @@ import com.fastdtw.util.EuclideanDistance;
 
 public class DtwTest {
 
-    private static final double PRECISION = 0.00000001;
-
     @Test
     public void testDistanceBetweenTrace0AndTrace1() {
         final TimeSeries tsI = TestingUtil.load("/trace0.csv");

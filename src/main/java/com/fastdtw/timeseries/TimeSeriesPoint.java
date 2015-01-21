@@ -8,16 +8,17 @@
 package com.fastdtw.timeseries;
 
 public class TimeSeriesPoint {
-    private double[] measurements;
-    private int hashCode;
+    private final double[] measurements;
+    private final int hashCode;
 
     public TimeSeriesPoint(double[] values) {
-        hashCode = 0;
+        int hashCode = 0;
         measurements = new double[values.length];
-        for (int x = 0; x < values.length; x++) {
-            hashCode += new Double(values[x]).hashCode();
-            measurements[x] = values[x];
+        for (int i = 0; i < values.length; i++) {
+            hashCode += new Double(values[i]).hashCode();
+            measurements[i] = values[i];
         }
+        this.hashCode = hashCode;
     }
 
     public double get(int dimension) {

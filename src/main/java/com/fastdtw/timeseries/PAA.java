@@ -16,8 +16,7 @@ public class PAA implements TimeSeries {
 
     public PAA(TimeSeries ts, int shrunkSize) {
         validate(ts, shrunkSize);
-        List<Double> timeReadings = new ArrayList<Double>();
-        List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
+        List<TimeSeriesItem> items = new ArrayList<TimeSeriesItem>();
 
         // Initialize private data.
         this.aggPtSize = new int[shrunkSize];
@@ -34,7 +33,7 @@ public class PAA implements TimeSeries {
         // the data is averaged.
         while (ptToReadFrom < ts.size()) {
             // determine end of current range
-            ptToReadTo = (int) Math.round(reducedPtSize * (timeReadings.size() + 1)) - 1;
+            ptToReadTo = (int) Math.round(reducedPtSize * (items.size() + 1)) - 1;
             final int ptsToRead = ptToReadTo - ptToReadFrom + 1;
 
             // Keep track of the sum of all the values being averaged to create
@@ -50,7 +49,7 @@ public class PAA implements TimeSeries {
 
                 for (int dim = 0; dim < ts.numOfDimensions(); dim++)
                     measurementSums[dim] += currentPoint[dim];
-            } // end for loop
+            } 
 
             // Determine the average value over the range
             // ptToReadFrom...ptToReadFrom.
@@ -60,13 +59,12 @@ public class PAA implements TimeSeries {
                 measurementSums[dim] = measurementSums[dim] / ptsToRead;
 
             // Add the computed average value to the aggregate approximation.
-            this.aggPtSize[timeReadings.size()] = ptsToRead;
-            timeReadings.add(timeSum);
-            points.add(new TimeSeriesPoint(measurementSums));
+            this.aggPtSize[items.size()] = ptsToRead;
+            items.add(new TimeSeriesItem(timeSum,new TimeSeriesPoint(measurementSums)));
             ptToReadFrom = ptToReadTo + 1; // next window of points to average
                                            // startw where the last window ended
         }
-        base = new TimeSeriesBase(timeReadings, points);
+        base = new TimeSeriesBase(items);
     }
 
     private static int validate(TimeSeries ts, int shrunkSize) {

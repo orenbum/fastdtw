@@ -11,19 +11,17 @@ import java.util.List;
 
 public class TimeSeriesBase implements TimeSeries {
 
-    private final List<Double> timeReadings; // ArrayList of Double
-    private final List<TimeSeriesPoint> tsArray; // ArrayList of TimeSeriesPoint..
+    private List<TimeSeriesItem> items;
     private final int numDimensions;
 
-    public TimeSeriesBase(List<Double> timeReadings, List<TimeSeriesPoint> tsArray) {
-        this.timeReadings = timeReadings;
-        this.tsArray = tsArray;
-        this.numDimensions = tsArray.get(0).size(); 
+    public TimeSeriesBase(List<TimeSeriesItem> items) {
+        this.items = items;
+        this.numDimensions = items.get(0).getPoint().size(); 
     }
 
     @Override
     public int size() {
-        return timeReadings.size();
+        return items.size();
     }
 
     @Override
@@ -33,18 +31,17 @@ public class TimeSeriesBase implements TimeSeries {
 
     @Override
     public double getTimeAtNthPoint(int n) {
-        return timeReadings.get(n).doubleValue();
+        return items.get(n).getTime();
     }
 
     @Override
     public double getMeasurement(int pointIndex, int valueIndex) {
-        return tsArray.get(pointIndex).get(valueIndex);
+        return items.get(pointIndex).getPoint().get(valueIndex);
     }
 
     @Override
     public double[] getMeasurementVector(int pointIndex) {
-        return tsArray.get(pointIndex).toArray();
+        return items.get(pointIndex).getPoint().toArray();
     }
-
 
 }
