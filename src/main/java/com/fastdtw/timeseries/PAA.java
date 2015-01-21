@@ -16,7 +16,7 @@ public class PAA implements TimeSeries {
 
     public PAA(TimeSeries ts, int shrunkSize) {
         validate(ts, shrunkSize);
-        List<TimeSeriesItem> items = new ArrayList<TimeSeriesItem>();
+        List<TimeSeriesItem> items = new ArrayList<TimeSeriesItem>(ts.size());
 
         // Initialize private data.
         this.aggPtSize = new int[shrunkSize];
