@@ -6,15 +6,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.fastdtw.dtw.TimeWarpInfo;
-import com.fastdtw.dtw.WarpPath;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.timeseries.TimeSeriesBase;
-import com.fastdtw.timeseries.TimeSeriesItem;
-import com.fastdtw.timeseries.TimeSeriesPoint;
+import com.fastdtw.timeseries.TimeSeriesBase.Builder;
 
 final class TestingUtil {
 
@@ -22,18 +17,17 @@ final class TestingUtil {
         InputStream is = FastDtwTest.class.getResourceAsStream(resourceName);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
-        List<TimeSeriesItem> items= new ArrayList<TimeSeriesItem>();
+        Builder builder = TimeSeriesBase.builder();
         try {
             int count = 0;
             while ((line = br.readLine()) != null) {
                 if (line.trim().length() > 0) {
                     double x = Double.parseDouble(line.trim());
-                    TimeSeriesPoint point = new TimeSeriesPoint(new double[] { x });
-                    items.add(new TimeSeriesItem(count, point));
+                    builder = builder.add(count, x);
                     count+=1;
                 }
             }
-            return new TimeSeriesBase(items);
+            return builder.build();
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

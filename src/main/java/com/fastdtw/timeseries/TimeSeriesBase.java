@@ -7,6 +7,7 @@
 
 package com.fastdtw.timeseries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimeSeriesBase implements TimeSeries {
@@ -17,6 +18,42 @@ public class TimeSeriesBase implements TimeSeries {
     public TimeSeriesBase(List<TimeSeriesItem> items) {
         this.items = items;
         this.numDimensions = items.get(0).getPoint().size(); 
+    }
+    
+    public final static Builder builder() {
+        return new Builder();
+    }
+    
+    public final static Builder add(double time, double... values) {
+        return builder().add(time, values);
+    }
+    
+    public final static Builder add(double time, TimeSeriesPoint point) {
+        return builder().add(time, point);
+    }
+    
+    public final static class Builder {
+        
+        private List<TimeSeriesItem> items = new ArrayList<TimeSeriesItem>() ;
+        
+        public Builder add(double time, double... values) {
+            items.add(new TimeSeriesItem(time, new TimeSeriesPoint(values)));
+            return this;
+        }
+        
+        public Builder add(TimeSeriesItem item) {
+            items.add(item);
+            return this;
+        }
+        
+        public Builder add(double time, TimeSeriesPoint point) {
+            items.add(new TimeSeriesItem(time, point));
+            return this;
+        }
+        
+        public TimeSeries build() {
+            return new TimeSeriesBase(items);
+        }
     }
 
     @Override

@@ -21,7 +21,7 @@ import com.fastdtw.timeseries.TimeSeriesBase;
 import com.fastdtw.timeseries.TimeSeriesItem;
 import com.fastdtw.timeseries.TimeSeriesPoint;
 import com.fastdtw.util.DistanceFunction;
-import com.fastdtw.util.DistanceFunctionFactory;
+import com.fastdtw.util.Distances;
 
 /**
  * This class contains a main method that executes the FastDTW algorithm on two
@@ -52,9 +52,9 @@ public class FastDtwQueryTest {
         } else {
             final DistanceFunction distFn;
             if (args.length < 4)
-                distFn = DistanceFunctionFactory.getDistFnByName("EuclideanDistance");
+                distFn = Distances.getDistFnByName("EuclideanDistance");
             else
-                distFn = DistanceFunctionFactory.getDistFnByName(args[3]);
+                distFn = Distances.getDistFnByName(args[3]);
 
             ArrayList<Double> datasetValues = readValues(args[0]);
             ArrayList<Double> queryValues = readValues(args[1]);

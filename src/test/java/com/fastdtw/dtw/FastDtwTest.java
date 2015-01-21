@@ -9,19 +9,18 @@ package com.fastdtw.dtw;
 
 import org.junit.Test;
 
-import com.fastdtw.dtw.FastDTW;
-import com.fastdtw.dtw.TimeWarpInfo;
 import com.fastdtw.timeseries.TimeSeries;
-import com.fastdtw.util.EuclideanDistance;
+import com.fastdtw.util.Distances;
 
 public class FastDtwTest {
 
     @Test
     public void testDistanceBetweenTrace0AndTrace1() {
-        final TimeSeries tsI = TestingUtil.load("/trace0.csv");
-        final TimeSeries tsJ = TestingUtil.load("/trace1.csv");
+        final TimeSeries ts1 = TestingUtil.load("/trace0.csv");
+        final TimeSeries ts2 = TestingUtil.load("/trace1.csv");
 
-        final TimeWarpInfo info = FastDTW.getWarpInfoBetween(tsI, tsJ, 10, new EuclideanDistance());
+        final TimeWarpInfo info = FastDTW.getWarpInfoBetween(ts1, ts2, 10,
+                Distances.EUCLIDEAN_DISTANCE);
         TestingUtil.assertDifferenceIsOk(info);
     }
 

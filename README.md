@@ -26,6 +26,30 @@ Improvements sought for this massaging of the original project are
 * add immutability
 * add JMH benchmarks
 
+How to use
+----------------
+To calculate the distance between two ```TimeSeries```:
+
+Create the two ```TimeSeries``` objects using the builder:
+
+```java
+TimeSeries ts1 = TimeSeriesBase.builder()
+                   .add(0, 123.4)
+                   .add(1, 125)
+                   .add(2, 126.3)
+                   .build();
+```
+
+Then calculate the distance:
+
+```java
+import com.fastdtw.dtw.FastDTW;
+import com.fastdtw.util.Distances;
+
+double distance = FastDTW.getWarpInfoBetween(ts1, ts2, 10, Distances.EUCLIDEAN_DISTANCE))
+                         .getDistance();
+```
+
 Benchmarks
 ---------------
 To run benchmarks:
