@@ -1,4 +1,4 @@
-package com.fastdtw;
+package com.fastdtw.dtw;
 
 import static org.junit.Assert.assertEquals;
 

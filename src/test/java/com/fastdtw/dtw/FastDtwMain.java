@@ -1,4 +1,4 @@
-package com.fastdtw;
+package com.fastdtw.dtw;
 
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.EuclideanDistance;

@@ -5,7 +5,7 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw;
+package com.fastdtw.dtw;
 
 import org.junit.Test;
 

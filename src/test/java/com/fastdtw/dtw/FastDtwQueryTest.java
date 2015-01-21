@@ -5,7 +5,7 @@
  * stansalvador@hotmail.com
  */
 
-package com.fastdtw;
+package com.fastdtw.dtw;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -30,7 +30,7 @@ import com.fastdtw.util.DistanceFunctionFactory;
  * @author C. Scott Andreas, s@boundary.com
  * @since May 8, 2012 (adapted from Stan's previous work)
  */
-public class DTWQueryTest {
+public class FastDtwQueryTest {
     /**
      * This main method executes the FastDTW algorithm on two time series with a
      * specified radius. The time series arguments are file names for files that
