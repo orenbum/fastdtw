@@ -9,6 +9,7 @@ package com.fastdtw;
 
 import org.junit.Test;
 
+import com.fastdtw.dtw.DTW;
 import com.fastdtw.dtw.TimeWarpInfo;
 import com.fastdtw.timeseries.TimeSeries;
 import com.fastdtw.util.EuclideanDistance;
@@ -20,7 +21,7 @@ public class DtwTest {
         final TimeSeries tsI = TestingUtil.load("/trace0.csv");
         final TimeSeries tsJ = TestingUtil.load("/trace1.csv");
 
-        final TimeWarpInfo info = com.fastdtw.dtw.DTW.getWarpInfoBetween(tsI, tsJ,
+        final TimeWarpInfo info = DTW.getWarpInfoBetween(tsI, tsJ,
                 new EuclideanDistance());
         TestingUtil.assertDifferenceIsOk(info);
     }

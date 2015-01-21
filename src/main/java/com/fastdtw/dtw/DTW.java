@@ -82,12 +82,6 @@ public class DTW
    }  // end getWarpDistBetween(..)
 
 
-   public static WarpPath getWarpPathBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
-   {
-      return dynamicTimeWarp(tsI, tsJ, distFn).getPath();
-   }
-
-
    public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn)
    {
       return dynamicTimeWarp(tsI, tsJ, distFn);
@@ -219,7 +213,7 @@ public class DTW
 
       while (matrixIterator.hasMoreElements())
       {
-         final ColMajorCell currentCell = (ColMajorCell)matrixIterator.nextElement();  // current cell being filled
+         final ColMajorCell currentCell = matrixIterator.nextElement();  // current cell being filled
          final int i = currentCell.getCol();
          final int j = currentCell.getRow();
 
@@ -250,13 +244,7 @@ public class DTW
 
    }  // end getWarpDistBetween(...)
 
-
-   public static WarpPath getWarpPathBetween(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn)
-   {
-      return constrainedTimeWarp(tsI, tsJ, window, distFn).getPath();
-   }
-
-
+   
    public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, SearchWindow window, DistanceFunction distFn)
    {
       return constrainedTimeWarp(tsI, tsJ, window, distFn);

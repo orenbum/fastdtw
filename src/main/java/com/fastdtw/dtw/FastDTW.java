@@ -17,28 +17,14 @@ public class FastDTW {
     // CONSTANTS
     public final static int DEFAULT_SEARCH_RADIUS = 1;
 
-    public static double getWarpDistBetween(TimeSeries tsI, TimeSeries tsJ, DistanceFunction distFn) {
-        return fastDTW(tsI, tsJ, DEFAULT_SEARCH_RADIUS, distFn).getDistance();
-    }
-
-    public static double getWarpDistBetween(TimeSeries tsI, TimeSeries tsJ, int searchRadius,
-            DistanceFunction distFn) {
-        return fastDTW(tsI, tsJ, searchRadius, distFn).getDistance();
-    }
-
-    public static WarpPath getWarpPathBetween(TimeSeries tsI, TimeSeries tsJ,
-            DistanceFunction distFn) {
-        return fastDTW(tsI, tsJ, DEFAULT_SEARCH_RADIUS, distFn).getPath();
-    }
-
-    public static WarpPath getWarpPathBetween(TimeSeries tsI, TimeSeries tsJ, int searchRadius,
-            DistanceFunction distFn) {
-        return fastDTW(tsI, tsJ, searchRadius, distFn).getPath();
-    }
-
     public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ, int searchRadius,
             DistanceFunction distFn) {
         return fastDTW(tsI, tsJ, searchRadius, distFn);
+    }
+
+    public static TimeWarpInfo getWarpInfoBetween(TimeSeries tsI, TimeSeries tsJ,
+            DistanceFunction distFn) {
+        return fastDTW(tsI, tsJ, DEFAULT_SEARCH_RADIUS, distFn);
     }
 
     private static TimeWarpInfo fastDTW(TimeSeries tsI, TimeSeries tsJ, int searchRadius,
@@ -61,13 +47,13 @@ public class FastDTW {
             // matrix that will be evaluated based on
             // the warp path found at the previous resolution (smaller time
             // series).
-            final SearchWindow window = new ExpandedResWindow(tsI, tsJ, shrunkI, shrunkJ,
-                    FastDTW.getWarpPathBetween(shrunkI, shrunkJ, searchRadius, distFn),
+            final SearchWindow window = new ExpandedResWindow(tsI, tsJ, shrunkI, shrunkJ, FastDTW
+                    .getWarpInfoBetween(shrunkI, shrunkJ, searchRadius, distFn).getPath(),
                     searchRadius);
 
             // Find the optimal warp path through this search window constraint.
             return DTW.getWarpInfoBetween(tsI, tsJ, window, distFn);
-        } 
-    } 
+        }
+    }
 
 }
