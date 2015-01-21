@@ -12,7 +12,6 @@ import java.util.List;
 
 public class PAA implements TimeSeries {
     private final int[] aggPtSize;
-    private final int originalLength;
     private final TimeSeries base;
 
     public PAA(TimeSeries ts, int shrunkSize) {
@@ -21,7 +20,6 @@ public class PAA implements TimeSeries {
         List<TimeSeriesPoint> points = new ArrayList<TimeSeriesPoint>();
 
         // Initialize private data.
-        this.originalLength = ts.size();
         this.aggPtSize = new int[shrunkSize];
 
         // Determine the size of each sampled point. (may be a fraction)
@@ -87,12 +85,6 @@ public class PAA implements TimeSeries {
 
     public int aggregatePtSize(int ptIndex) {
         return aggPtSize[ptIndex];
-    }
-
-    @Override
-    public String toString() {
-        return "(" + this.originalLength + " point time series represented as " + this.size()
-                + " points)\n" + super.toString();
     }
 
     @Override
