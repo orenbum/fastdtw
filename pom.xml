@@ -7,7 +7,7 @@
 		<version>0.1</version>
 	</parent>
 	<artifactId>fastdtw</artifactId>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<url>https://code.google.com/p/fastdtw</url>
 	<packaging>jar</packaging>
@@ -45,7 +45,7 @@
 		<connection>scm:git:git@github.com:davidmoten/fastdtw.git</connection>
 		<developerConnection>scm:git:git@github.com:davidmoten/fastdtw.git</developerConnection>
 		<url>scm:git:git@github.com:davidmoten/fastdtw.git</url>
-		<tag>0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<dependencies>
