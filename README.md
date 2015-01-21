@@ -5,7 +5,7 @@ fastdtw
 
 An enhancement of Stan Salvador and Philip Chan's *FastDTW* dynamic time warping [implementation](https://code.google.com/p/fastdtw/).
 
-Status: *pre-alpha*
+Status: *released to Maven Central*
 
 Improvements sought for this massaging of the original project are
 
@@ -23,11 +23,22 @@ Improvements sought for this massaging of the original project are
 * add javadocs
 * trim API to essentials
 * support non-file input data
+* decouple where appropriate
 * add immutability
 * add JMH benchmarks
 
 How to use
 ----------------
+Add this dependency to your pom.xml:
+
+```xml
+<dependency>
+  <groupId>com.github.davidmoten</groupId>
+  <artifactId>fastdtw</artifactId>
+  <version>0.1</version>
+</dependency>
+```
+
 To calculate the distance between two ```TimeSeries```:
 
 Create the two ```TimeSeries``` objects using the builder:
