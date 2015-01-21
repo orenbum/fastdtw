@@ -7,126 +7,52 @@
 
 package com.fastdtw.timeseries;
 
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.Iterator;
+public class TimeSeriesPoint {
+    private double[] measurements;
+    private int hashCode;
 
+    public TimeSeriesPoint(double[] values) {
+        hashCode = 0;
+        measurements = new double[values.length];
+        for (int x = 0; x < values.length; x++) {
+            hashCode += new Double(values[x]).hashCode();
+            measurements[x] = values[x];
+        }
+    }
 
-public class TimeSeriesPoint
-{
-   // PRIVATE DATA
-   private double[] measurements;
-   private int hashCode;
+    public double get(int dimension) {
+        return measurements[dimension];
+    }
 
+    public double[] toArray() {
+        return measurements;
+    }
 
-   // CONSTRUCTORS
-   public TimeSeriesPoint(double[] values)
-   {
-      hashCode = 0;
-      measurements = new double[values.length];
-      for (int x=0; x<values.length; x++)
-      {
-         hashCode += new Double(values[x]).hashCode();
-         measurements[x] = values[x];
-      }
-   }
+    public int size() {
+        return measurements.length;
+    }
 
-
-   public TimeSeriesPoint(Collection<Double> values)
-   {
-      measurements = new double[values.size()];
-      hashCode = 0;
-
-      final Iterator<Double> i = values.iterator();
-      int index = 0;
-      while (i.hasNext())
-      {
-         final Object nextElement = i.next();
-         if (nextElement instanceof Double)
-            measurements[index] = ((Double)nextElement).doubleValue();
-         else if (nextElement instanceof Integer)
-            measurements[index] = ((Integer)nextElement).doubleValue();
-         else if (nextElement instanceof BigInteger)
-            measurements[index] = ((BigInteger)nextElement).doubleValue();
-         else
-            throw new RuntimeException("ERROR:  The element " + nextElement +
-                                    " is not a valid numeric type");
-
-         hashCode += new Double(measurements[index]).hashCode();
-         index++;
-      }  // end while loop
-   }  // end constructor
-
-
-
-   // FUNCTIONS
-   public double get(int dimension)
-   {
-      return measurements[dimension];
-   }
-
-
-   public void set(int dimension, double newValue)
-   {
-      hashCode -= new Double(measurements[dimension]).hashCode();
-      measurements[dimension] = newValue;
-      hashCode += new Double(newValue).hashCode();
-   }
-
-
-   public double[] toArray()
-   {
-      return measurements;
-   }
-
-
-   public int size()
-   {
-      return measurements.length;
-   }
-
-
-   public String toString()
-   {
-      String outStr = "(";
-      for (int x=0; x<measurements.length; x++)
-      {
-         outStr += measurements[x];
-         if (x < measurements.length-1)
-            outStr += ",";
-      }
-      outStr += ")";
-
-      return outStr;
-   }  // end toString()
-
-
-   public boolean equals(Object o)
-   {
-      if (this == o)
-         return true;
-      else if (o instanceof TimeSeriesPoint)
-      {
-         final double[] testValues = ((TimeSeriesPoint)o).toArray();
-         if (testValues.length == measurements.length)
-         {
-            for (int x=0; x<measurements.length; x++)
-               if (measurements[x] != testValues[x])
-                  return false;
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
             return true;
-         }
-         else
+        else if (o instanceof TimeSeriesPoint) {
+            final double[] testValues = ((TimeSeriesPoint) o).toArray();
+            if (testValues.length == measurements.length) {
+                for (int x = 0; x < measurements.length; x++)
+                    if (measurements[x] != testValues[x])
+                        return false;
+
+                return true;
+            } else
+                return false;
+        } else
             return false;
-      }
-      else
-         return false;
-   }  // end public boolean equals
+    }
 
+    @Override
+    public int hashCode() {
+        return hashCode;
+    }
 
-   public int hashCode()
-   {
-      return this.hashCode;
-   }
-
-}  // end class TimeSeriesPoint
+}

@@ -33,37 +33,18 @@ public class TimeSeriesBase implements TimeSeries {
 
     @Override
     public double getTimeAtNthPoint(int n) {
-        return ((Double) timeReadings.get(n)).doubleValue();
+        return timeReadings.get(n).doubleValue();
     }
 
     @Override
     public double getMeasurement(int pointIndex, int valueIndex) {
-        return ((TimeSeriesPoint) tsArray.get(pointIndex)).get(valueIndex);
+        return tsArray.get(pointIndex).get(valueIndex);
     }
 
     @Override
     public double[] getMeasurementVector(int pointIndex) {
-        return ((TimeSeriesPoint) tsArray.get(pointIndex)).toArray();
+        return tsArray.get(pointIndex).toArray();
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer outStr = new StringBuffer();
-        // Write the data for each row.
-        for (int r = 0; r < timeReadings.size(); r++) {
-            // Time
-            // outStr.append(timeReadings.get(r).toString());
-
-            // The rest of the value on the row.
-            final TimeSeriesPoint values = (TimeSeriesPoint) tsArray.get(r);
-            for (int c = 0; c < values.size(); c++)
-                outStr.append(values.get(c));
-
-            if (r < timeReadings.size() - 1)
-                outStr.append("\n");
-        }
-
-        return outStr.toString();
-    }
 
 }
