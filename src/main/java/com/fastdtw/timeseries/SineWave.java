@@ -23,7 +23,6 @@ import java.util.Random;
 public class SineWave implements TimeSeries {
     private static final Random rand = new Random();
     private final TimeSeries base;
-    
 
     public SineWave(int length, double cycles, double noise) {
         List<Double> timeReadings = new ArrayList<Double>();
@@ -31,7 +30,7 @@ public class SineWave implements TimeSeries {
         for (int x = 0; x < length; x++) {
             final double nextPoint = Math.sin((double) x / length * 2.0 * Math.PI * cycles)
                     + rand.nextGaussian() * noise;
-            timeReadings.add( (double) x);
+            timeReadings.add((double) x);
             points.add(new TimeSeriesPoint(new double[] { nextPoint }));
         }
         base = new TimeSeriesBase(timeReadings, points);

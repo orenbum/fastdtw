@@ -1,6 +1,5 @@
 package com.fastdtw.timeseries;
 
-
 public interface TimeSeries {
 
     int size();
