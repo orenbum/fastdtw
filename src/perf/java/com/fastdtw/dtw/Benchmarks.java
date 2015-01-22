@@ -19,5 +19,10 @@ public class Benchmarks {
     public void fastDtw() {
         com.fastdtw.dtw.FastDTW.compare(tsI, tsJ, 10, Distances.EUCLIDEAN_DISTANCE);
     }
+    
+    @Benchmark
+    public void dtw() {
+        com.fastdtw.dtw.DTW.compare(tsI, tsJ, Distances.EUCLIDEAN_DISTANCE);
+    }
 
 }
