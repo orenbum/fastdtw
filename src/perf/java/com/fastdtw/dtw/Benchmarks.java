@@ -1,11 +1,13 @@
-package com.fastdtw;
+package com.fastdtw.dtw;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
 import com.fastdtw.timeseries.TimeSeries;
+import com.fastdtw.util.Distances;
 import com.fastdtw.util.EuclideanDistance;
+import com.fastdtw.dtw.TestingUtil;
 
 @State(Scope.Benchmark)
 public class Benchmarks {
@@ -15,7 +17,7 @@ public class Benchmarks {
 
     @Benchmark
     public void fastDtw() {
-        com.fastdtw.dtw.FastDTW.getWarpInfoBetween(tsI, tsJ, 10, new EuclideanDistance());
+        com.fastdtw.dtw.FastDTW.compare(tsI, tsJ, 10, Distances.EUCLIDEAN_DISTANCE);
     }
 
 }
