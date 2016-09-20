@@ -232,11 +232,12 @@ public final class DTW
          }
          else                         // not first column or first row
          {
+            final double local = distFn.calcDistance(tsI.getMeasurementVector(i),
+                    tsJ.getMeasurementVector(j));
             final double minGlobalCost = Math.min(costMatrix.get(i-1, j),
-                                                  Math.min(costMatrix.get(i-1, j-1),
+                                                  Math.min(local + costMatrix.get(i-1, j-1),
                                                            costMatrix.get(i, j-1)));
-            costMatrix.put(i, j, minGlobalCost + distFn.calcDistance(tsI.getMeasurementVector(i),
-                                                                     tsJ.getMeasurementVector(j)));
+            costMatrix.put(i, j, minGlobalCost + local);
          }  // end if
       }  // end while loop
 
