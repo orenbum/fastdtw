@@ -7,7 +7,7 @@
 		<version>0.1</version>
 	</parent>
 	<artifactId>fastdtw</artifactId>
-	<version>0.2-SNAPSHOT</version>
+	<version>metron-0.2-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<url>https://code.google.com/p/fastdtw</url>
 	<packaging>jar</packaging>

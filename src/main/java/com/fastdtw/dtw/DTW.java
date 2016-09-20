@@ -72,8 +72,9 @@ public final class DTW
          for (int j=1; j<=maxJ; j++)  // j = rows
          {
             // (i,j) = LocalCost(i,j) + minGlobalCost{(i-1,j),(i-1,j-1),(i,j-1)}
-            final double minGlobalCost = Math.min(lastCol[j], Math.min(lastCol[j-1], currCol[j-1]));
-            currCol[j] = minGlobalCost + distFn.calcDistance(tsI.getMeasurementVector(i), tsJ.getMeasurementVector(j));
+            double local = distFn.calcDistance(tsI.getMeasurementVector(i), tsJ.getMeasurementVector(j));
+            final double minGlobalCost = Math.min(lastCol[j], Math.min(local + lastCol[j-1], currCol[j-1]));
+            currCol[j] = minGlobalCost + local;
          }  // end for loop
       }  // end for loop
 
@@ -122,11 +123,11 @@ public final class DTW
          for (int j=1; j<=maxJ; j++)  // j = rows
          {
             // (i,j) = LocalCost(i,j) + minGlobalCost{(i-1,j),(i-1,j-1),(i,j-1)}
+            double local = distFn.calcDistance(tsI.getMeasurementVector(i),tsJ.getMeasurementVector(j));
             final double minGlobalCost = Math.min(costMatrix[i-1][j],
-                                                  Math.min(costMatrix[i-1][j-1],
+                                                  Math.min(local+costMatrix[i-1][j-1],
                                                            costMatrix[i][j-1]));
-            costMatrix[i][j] = minGlobalCost + distFn.calcDistance(tsI.getMeasurementVector(i),
-                                                                   tsJ.getMeasurementVector(j));
+            costMatrix[i][j] = minGlobalCost + local;
          }  // end for loop
       }  // end for loop
 
@@ -302,14 +303,14 @@ public final class DTW
                                 + costMatrix.get(i - 1, j));
             } else // not first column or first row
             {
+                double local = distFn.calcDistance(tsI.getMeasurementVector(i),
+                        tsJ.getMeasurementVector(j));
                 final double minGlobalCost = Math.min(costMatrix.get(i - 1, j),
-                        Math.min(costMatrix.get(i - 1, j - 1), costMatrix.get(i, j - 1)));
+                        Math.min(local + costMatrix.get(i - 1, j - 1), costMatrix.get(i, j - 1)));
                 costMatrix.put(
                         i,
                         j,
-                        minGlobalCost
-                                + distFn.calcDistance(tsI.getMeasurementVector(i),
-                                        tsJ.getMeasurementVector(j)));
+                        minGlobalCost + local);
             } // end if
         } // end while loop
 
@@ -373,5 +374,4 @@ public final class DTW
 
         return new TimeWarpInfo(minimumCost, minCostPath);
     }
-
 }
